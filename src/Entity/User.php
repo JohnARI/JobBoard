@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\JobApplication;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -79,6 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->jobApplications = new ArrayCollection();
+        $this->setRoles(['ROLE_USER']);
     }
 
     public function getId(): ?int
@@ -114,6 +117,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername(): string
     {
         return (string) $this->email;
+    }
+
+    public function getRole(): ?string
+    {
+        $role = $this->roles;
+        $implode = implode(',', $role);
+        $admin = 'Administrateur';
+        $user = 'Utilisateur';
+        $recruiter = 'Recruteur';
+        switch ($implode) {
+            case 'ROLE_ADMIN':
+                $role = 'ROLE_ADMIN,ROLE_USER';
+                return $admin;
+                break;
+            case 'ROLE_USER':
+                $role = 'ROLE_USER';
+                return $user;
+                break;
+            case 'ROLE_RECRUITER':
+                $role = 'ROLE_RECRUITER,ROLE_USER';
+                return $recruiter;
+                break;
+            return '';
+        }
     }
 
     /**

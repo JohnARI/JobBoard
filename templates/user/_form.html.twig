@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+{{ form_widget(form.firstname) }}
+{{ form_widget(form.lastname) }}
+{{ form_widget(form.email) }}
+{{ form_widget(form.password) }}
+{{ form_widget(form.phone) }}
+{{ form_widget(form.resume) }}
+{{ form_widget(form.sector) }}
+<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
