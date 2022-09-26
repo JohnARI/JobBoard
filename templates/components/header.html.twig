@@ -7,7 +7,11 @@
                 <img class='h-8 mt-[-6px]' src='images/logo.png'>
             </a>
         </li>
-        <li class='ml-auto my-auto'><a href=''><img class='h-6 invert-[50%]' src='images/notif.png'></a></li>
+        <li class='flex ml-auto my-auto outline-0'>
+            <input class='text-black text-[1rem] w-92 outline-0 active:border-violet-600 border-b-2 my-auto' placeholder='Search for a job' autocomplete="off" type='text' id='search' name='search'>
+            <label class='my-auto' for='search'><img class='h-4 invert-[50%]' src='images/search.png'></label>
+        </li>
+        <li class='my-auto'><a href=''><img class='h-6 invert-[50%]' src='images/notif.png'></a></li>
         <li class='my-auto'><a href=''><img class='h-6 invert-[50%]' src='images/profile.png'></a></li>
     </ul>
 {% endblock %}
