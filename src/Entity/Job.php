@@ -63,7 +63,7 @@ class Job
     private $end;
 
     /**
-     * @ORM\ManyToOne(targetEntity=jobTypes::class, inversedBy="jobs")
+     * @ORM\ManyToOne(targetEntity=JobTypes::class, inversedBy="jobs")
      */
     private $jobType;
 
@@ -180,12 +180,12 @@ class Job
         return $this;
     }
 
-    public function getJobType(): ?jobTypes
+    public function getJobType(): ?JobTypes
     {
         return $this->jobType;
     }
 
-    public function setJobType(?jobTypes $jobType): self
+    public function setJobType(?JobTypes $jobType): self
     {
         $this->jobType = $jobType;
 
