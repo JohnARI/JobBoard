@@ -36,7 +36,7 @@ class JobApplication
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -94,14 +94,14 @@ class JobApplication
         return $this;
     }
 
-    public function getFirstName(): ?string
+    public function getfirstname(): ?string
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setfirstname(string $firstname): self
     {
-        $this->firstName = $firstName;
+        $this->firstname = $firstname;
 
         return $this;
     }
