@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DashboardController extends AbstractController
 {
     /**
-     * @Route("admin/dashboard", name="app_dashboard")
+     * @Route("dashboard", name="app_dashboard")
      */
     public function index(): Response
     {
