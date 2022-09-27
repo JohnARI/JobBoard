@@ -5,6 +5,7 @@
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
+	{% set id = 'user_table' %}
 		{% block tableTitle %}
 			<h1>User index</h1>
 		{% endblock %}
@@ -32,9 +33,14 @@
 					<td class="px-6 py-4">{{ user.resume }}</td>
 					<td class="px-6 py-4">{{ user.sector }}</td>
 					<td class="px-6 py-4">{{ user.isVerified ? 'Yes' : 'No' }}</td>
-					<td class="px-6 py-4">
-						<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-						<a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+					<td class="px-6 py-4 flex gap-4">
+						<a href="{{ path('app_user_show', {'id': user.id}) }}">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+						<a href="{{ path('app_user_edit', {'id': user.id}) }}">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</a>
+						{{ include('dashboard/crud/user/_delete_form.html.twig') }}
 					</td>
 				</tr>
 			{% else %}
@@ -43,6 +49,8 @@
 				</tr>
 			{% endfor %}
 		{% endblock %}
-		{% block button %}<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{path('app_user_new')}}">Ajouter</a>{% endblock %}
+		{% block button %}
+			<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{path('app_user_new')}}">Ajouter</a>
+		{% endblock %}
 	{% endembed %}
 {% endblock %}

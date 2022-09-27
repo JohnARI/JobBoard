@@ -20,9 +20,11 @@ Back Office | Secteur
 				<tr class="border border-violet-600 bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-600">
 					<td class="px-6 py-4">{{ sector.id }}</td>
 					<td class="px-6 py-4">{{ sector.name }}</td>
-					<td class="px-6 py-4">
-						<a href="{{ path('app_user_show', {'id': sector.id}) }}">show</a>
-						<a href="{{ path('app_user_edit', {'id': sector.id}) }}">edit</a>
+					<td class="px-6 py-4 flex gap-4">
+						<a href="{{ path('app_user_show', {'id': sector.id}) }}"><i class="fa-solid fa-eye"></i></a>
+						<a href="{{ path('app_user_edit', {'id': sector.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+						{{include('dashboard/crud/sector/_delete_form.html.twig')}}
+						
 					</td>
 				</tr>
 			{% else %}

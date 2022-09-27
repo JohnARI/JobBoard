@@ -33,9 +33,10 @@
 					<td class="px-6 py-4">{{ job.createdAt ? job.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 					<td class="px-6 py-4">{{ job.start ? job.start|date('Y-m-d') : '' }}</td>
 					<td class="px-6 py-4">{{ job.end ? job.end|date('Y-m-d') : '' }}</td>
-					<td class="px-6 py-4">
-						<a href="{{ path('app_user_show', {'id': job.id}) }}">show</a>
-						<a href="{{ path('app_user_edit', {'id': job.id}) }}">edit</a>
+					<td class="px-6 py-4 flex gap-4">
+						<a href="{{ path('app_user_show', {'id': job.id}) }}"><i class="fa-solid fa-eye"></i></a>
+						<a href="{{ path('app_user_edit', {'id': job.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+						
 					</td>
 				</tr>
 			{% else %}
