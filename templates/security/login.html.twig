@@ -3,12 +3,12 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class='flex py-20 px-40 h-[calc(100vh-4rem)] '>
+    <div class='flex sm:py-10 sm:px-20 md:py-20 md:px-40 px-0 py-0 sm:h-[calc(100vh-4rem)] h-[calc(100vh-5rem)]'>
         <div id='nuts' class='lg:flex hidden h-full w-1/2 shadow-2xl bg-cover rounded-l' style='background-image: url(images/nuts.png)'>
 
         </div>
 
-        <div class='flex h-full lg:w-1/2 w-full bg-white shadow-2xl rounded-r py-10 px-20'>
+        <div class='flex h-full lg:w-1/2 w-full bg-white shadow-2xl rounded-r py-5 px-10 md:py-10 md:px-20'>
             <form method='post' class='flex flex-col w-full gap-6 m-auto'>
                 {% if error %} <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>{% endif %}
 
