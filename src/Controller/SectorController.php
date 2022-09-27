@@ -20,7 +20,7 @@ class SectorController extends AbstractController
      */
     public function index(SectorRepository $sectorRepository): Response
     {
-        return $this->render('sector/index.html.twig', [
+        return $this->render('dashboard/crud/sector/index.html.twig', [
             'sectors' => $sectorRepository->findAll(),
         ]);
     }
@@ -40,7 +40,7 @@ class SectorController extends AbstractController
             return $this->redirectToRoute('app_sector_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('sector/new.html.twig', [
+        return $this->renderForm('dashboard/crud/sector/new.html.twig', [
             'sector' => $sector,
             'form' => $form,
         ]);
@@ -51,7 +51,7 @@ class SectorController extends AbstractController
      */
     public function show(Sector $sector): Response
     {
-        return $this->render('sector/show.html.twig', [
+        return $this->render('dashboard/crud/sector/show.html.twig', [
             'sector' => $sector,
         ]);
     }
@@ -70,7 +70,7 @@ class SectorController extends AbstractController
             return $this->redirectToRoute('app_sector_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('sector/edit.html.twig', [
+        return $this->renderForm('dashboard/crud/sector/edit.html.twig', [
             'sector' => $sector,
             'form' => $form,
         ]);

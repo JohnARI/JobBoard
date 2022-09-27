@@ -20,7 +20,7 @@ class CompanyController extends AbstractController
      */
     public function index(CompanyRepository $companyRepository): Response
     {
-        return $this->render('company/index.html.twig', [
+        return $this->render('dashboard/crud/company/index.html.twig', [
             'companies' => $companyRepository->findAll(),
         ]);
     }
@@ -40,7 +40,7 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('app_company_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('company/new.html.twig', [
+        return $this->renderForm('dashboard/crud/company/new.html.twig', [
             'company' => $company,
             'form' => $form,
         ]);
@@ -51,7 +51,7 @@ class CompanyController extends AbstractController
      */
     public function show(Company $company): Response
     {
-        return $this->render('company/show.html.twig', [
+        return $this->render('dashboard/crud/company/show.html.twig', [
             'company' => $company,
         ]);
     }
@@ -70,7 +70,7 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('app_company_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('company/edit.html.twig', [
+        return $this->renderForm('dashboard/crud/company/edit.html.twig', [
             'company' => $company,
             'form' => $form,
         ]);

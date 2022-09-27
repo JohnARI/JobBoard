@@ -20,7 +20,7 @@ class JobController extends AbstractController
      */
     public function index(JobRepository $jobRepository): Response
     {
-        return $this->render('job/index.html.twig', [
+        return $this->render('dashboard/crud/job/index.html.twig', [
             'jobs' => $jobRepository->findAll(),
         ]);
     }
@@ -40,7 +40,7 @@ class JobController extends AbstractController
             return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('job/new.html.twig', [
+        return $this->renderForm('dashboard/crud/job/new.html.twig', [
             'job' => $job,
             'form' => $form,
         ]);
@@ -51,7 +51,7 @@ class JobController extends AbstractController
      */
     public function show(Job $job): Response
     {
-        return $this->render('job/show.html.twig', [
+        return $this->render('dashboard/crud/job/show.html.twig', [
             'job' => $job,
         ]);
     }
@@ -70,7 +70,7 @@ class JobController extends AbstractController
             return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('job/edit.html.twig', [
+        return $this->renderForm('dashboard/crud/job/edit.html.twig', [
             'job' => $job,
             'form' => $form,
         ]);

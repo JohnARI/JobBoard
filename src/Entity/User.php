@@ -33,9 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [
-            
-    ];
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -126,25 +124,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRole(): ?string
     {
-        $role = $this->roles;
-        $implode = implode(',', $role);
-        $admin = 'Administrateur';
-        $user = 'Utilisateur';
-        $recruiter = 'Recruteur';
+        $role = $this->getRoles();
+        $implode =  implode(",", $role);
+        $admin = "Administrateur";
+        $recruiter = "Recruteur";
+        $user = "Utilisateur";
+
         switch ($implode) {
-            case 'ROLE_ADMIN':
-                $role = 'ROLE_ADMIN,ROLE_USER';
+            case 'ROLE_ADMIN,ROLE_USER':
                 return $admin;
                 break;
-            case 'ROLE_USER':
-                $role = 'ROLE_USER';
-                return $user;
-                break;
-            case 'ROLE_RECRUITER':
-                $role = 'ROLE_RECRUITER,ROLE_USER';
+            case 'ROLE_RECRUITER,ROLE_USER':
                 return $recruiter;
                 break;
-            return '';
+            case 'ROLE_USER':
+                return $user;
+                break;
+                return  "";
         }
     }
 

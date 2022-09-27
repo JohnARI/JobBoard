@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Entity\Sector;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,8 +40,16 @@ class UserType extends AbstractType
             ->add('sector', EntityType::class, [
                 'class' => Sector::class,
                 'choice_label' => 'name',
-            ])
-        ;
+            ]);
+            $builder->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($rolesArray) {
+                    return count($rolesArray) ? $rolesArray[0] : null;
+                },
+                function ($rolesString) {
+                    return [$rolesString];
+                }
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -25,7 +25,6 @@ class DefaultController extends AbstractController
                     return $this->redirectToRoute('recruiter_home');
                 case 'Administrateur':
                     return $this->redirectToRoute('admin_home');
-
             }
         }
     }
