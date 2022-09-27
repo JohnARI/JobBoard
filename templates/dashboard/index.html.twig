@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Dashboard</h1>
+            <p>Dashboard a remplir</p>
+            <ul>
+                <li>
+                    <a href="{{path('app_user_index')}}">User</a>
+                </li>
+            <li>
+                <a href="{{path('app_job_index')}}">Jobs</a>
+            </li>
+            <li>
+                <a href="{{path('app_job_types_index')}}">Job Types</a>
+            </li>
+            <li>
+                <a href="{{path('app_company_index')}}">Company</a>
+            </li>
+            </ul>
+
+        </div>
+    </div>
+</div>{% endblock %}
