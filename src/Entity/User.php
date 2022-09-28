@@ -77,14 +77,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="recruiters")
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="User")
+     */
+    private $jobs;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $company;
 
     public function __construct()
     {
         $this->jobApplications = new ArrayCollection();
-        $this->setRoles(['ROLE_USER']);
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -300,12 +305,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCompany(): ?Company
+    /**
+     * @return Collection<int, Job>
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs[] = $job;
+            $job->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->jobs->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getUser() === $this) {
+                $job->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
     {
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany(string $company): self
     {
         $this->company = $company;
 

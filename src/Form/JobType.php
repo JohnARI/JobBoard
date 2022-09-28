@@ -6,6 +6,7 @@ use App\Entity\Job;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class JobType extends AbstractType
 {
@@ -17,8 +18,17 @@ class JobType extends AbstractType
             ->add('link')
             ->add('city')
             ->add('salary')
-            ->add('contract_type')
-            ->add('created_at')
+            ->add('contract_type', ChoiceType::class , [
+                'choices' => [
+                    'CDI' => 'CDI',
+                    'CDD' => 'CDD',
+                    'Stage' => 'Stage',
+                    'Alternance' => 'Alternance',
+                    'Freelance' => 'Freelance',
+                    'Intérim' => 'Intérim',
+                    'Apprentissage' => 'Apprentissage',
+                ],
+            ])
             ->add('start')
             ->add('end')
             ->add('jobType')

@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Back Office | Domaine
+{% block title %}
+Back Office | Domaine
 {% endblock %}
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
+		{% set id = 'data-table-jobtypes' %}
 		{% block tableTitle %}
 			<h1>Domaine</h1>
 		{% endblock %}
@@ -15,7 +17,7 @@
 		{% endblock %}
 		{% block tbody %}
 			{% for job_type in job_types %}
-				<tr class="border border-violet-600 bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-600">
+				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 					<td class="px-6 py-4">{{ job_type.id }}</td>
 					<td class="px-6 py-4">{{ job_type.title }}</td>
 					<td class="px-6 py-4 flex gap-4">

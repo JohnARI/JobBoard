@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Job index
+{% block title %}
+	Back Office | Annonces
 {% endblock %}
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
-		{% block tableTitle %}Annonce de travail
+		{% set id = 'data-table-jobtypes' %}
+		{% block tableTitle %}
+			<h1>Annonce de travail</h1>
 		{% endblock %}
 		{% block th %}
 			<th class="px-6 py-3">Id</th>
@@ -15,6 +18,8 @@
 			<th class="px-6 py-3">City</th>
 			<th class="px-6 py-3">Salary</th>
 			<th class="px-6 py-3">Contract_type</th>
+			<th class="px-6 py-3">Recruteur</th>
+			<th class="px-6 py-3">Entreprise</th>
 			<th class="px-6 py-3">Created_at</th>
 			<th class="px-6 py-3">Start</th>
 			<th class="px-6 py-3">End</th>
@@ -22,21 +27,27 @@
 		{% endblock %}
 		{% block tbody %}
 			{% for job in jobs %}
-				<tr class="border border-violet-600 bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-600">
+				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 					<td class="px-6 py-4">{{ job.id }}</td>
 					<td class="px-6 py-4">{{ job.title }}</td>
 					<td class="px-6 py-4">{{ job.description }}</td>
 					<td class="px-6 py-4">{{ job.link }}</td>
 					<td class="px-6 py-4">{{ job.city }}</td>
 					<td class="px-6 py-4">{{ job.salary }}</td>
-					<td class="px-6 py-4">{{ job.contract_type }}</td>
-					<td class="px-6 py-4">{{ job.createdAt ? job.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td class="px-6 py-4">{{ job.start ? job.start|date('Y-m-d') : '' }}</td>
-					<td class="px-6 py-4">{{ job.end ? job.end|date('Y-m-d') : '' }}</td>
+					<td class="px-6 py-4">{{ job.contractType }}</td>
+					<td class="px-6 py-4">{{ job.user.firstname ~ ' ' ~ job.user.lastname }}</td>
+					<td class="px-6 py-4">{{ job.user.company }}</td>
+					<td class="px-6 py-4">{{ job.createdAt ? job.createdAt|date('d-m-Y') : '' }}</td>
+					<td class="px-6 py-4">{{ job.start ? job.start|date('d-m-Y') : '' }}</td>
+					<td class="px-6 py-4">{{ job.end ? job.end|date('d-m-Y') : '' }}</td>
 					<td class="px-6 py-4 flex gap-4">
-						<a href="{{ path('app_user_show', {'id': job.id}) }}"><i class="fa-solid fa-eye"></i></a>
-						<a href="{{ path('app_user_edit', {'id': job.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-						
+						<a href="{{ path('app_user_show', {'id': job.id}) }}">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+						<a href="{{ path('app_user_edit', {'id': job.id}) }}">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</a>
+						{{include('dashboard/crud/job/_delete_form.html.twig')}}
 					</td>
 				</tr>
 			{% else %}

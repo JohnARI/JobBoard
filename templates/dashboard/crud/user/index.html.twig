@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index
+{% block title %}
+Back Office | Utilisateur
 {% endblock %}
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
-	{% set id = 'user_table' %}
+		{% set id = 'data-table-user' %}
 		{% block tableTitle %}
 			<h1>User index</h1>
 		{% endblock %}
@@ -15,6 +16,7 @@
 			<th class="px-6 py-3">Roles</th>
 			<th class="px-6 py-3">Firstname</th>
 			<th class="px-6 py-3">Lastname</th>
+			<th class="px-6 py-3">Entreprise</th>
 			<th class="px-6 py-3">Phone</th>
 			<th class="px-6 py-3">Resume</th>
 			<th class="px-6 py-3">Sector</th>
@@ -23,15 +25,38 @@
 		{% endblock %}
 		{% block tbody %}
 			{% for user in users %}
-				<tr class="border border-violet-600 bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-600">
+				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 					<td class="px-6 py-4">{{ user.id }}</td>
 					<td class="px-6 py-4">{{ user.email }}</td>
 					<td class="px-6 py-4">{{ user.role}}</td>
 					<td class="px-6 py-4">{{ user.firstname }}</td>
 					<td class="px-6 py-4">{{ user.lastname }}</td>
-					<td class="px-6 py-4">{{ user.phone }}</td>
-					<td class="px-6 py-4">{{ user.resume }}</td>
-					<td class="px-6 py-4">{{ user.sector }}</td>
+					<td class="px-6 py-4">{% if user.company is empty %}
+							Aucun
+						{% else %}
+							0{{ user.company }}
+						{% endif %}</td>
+					<td class="px-6 py-4">
+						{% if user.phone is empty %}
+							Aucun
+						{% else %}
+							0{{ user.phone }}
+						{% endif %}
+					</td>
+					<td class="px-6 py-4">
+						{% if user.resume is empty %}
+							Aucun
+						{% else %}
+							{{ user.resume }}
+						{% endif %}
+					</td>
+					<td class="px-6 py-4">
+						{% if user.sector is empty %}
+							Aucun
+						{% else %}
+							{{ user.sector}}
+						{% endif %}
+					</td>
 					<td class="px-6 py-4">{{ user.isVerified ? 'Yes' : 'No' }}</td>
 					<td class="px-6 py-4 flex gap-4">
 						<a href="{{ path('app_user_show', {'id': user.id}) }}">

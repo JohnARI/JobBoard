@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Company index
+{% block title %}
+Back Office | Entreprises
 {% endblock %}
 
 {% block body %}
-	<div class="p-20 flex flex-col gap-6">
-		<h1>Company index</h1>
-		<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('default') }}">Retour</a>
-		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-200">
-			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
-				<tr class="border border-violet-600">
-					<th class="px-6 py-3">Id</th>
-					<th class="px-6 py-3">Name</th>
-					<th class="px-6 py-3">Website</th>
-					<th class="px-6 py-3">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for company in companies %}
-					<tr class="border border-violet-600 bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-600">
+	{% embed "components/table.html.twig" %}
+		{% set id = 'data-table-company' %}
+		{% block tableTitle %}
+		<h1>Entreprises</h1>
+		{% endblock %}
+		{% block th %}
+			<th class="px-6 py-3">Id</th>
+			<th class="px-6 py-3">Name</th>
+			<th class="px-6 py-3">Website</th>
+			<th class="px-6 py-3">Actions</th>
+		{% endblock %}
+		{% block tbody %}
+		{% for company in companies %}
+					<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 						<td class="px-6 py-4">{{ company.id }}</td>
 						<td class="px-6 py-4">{{ company.name }}</td>
 						<td class="px-6 py-4">{{ company.website }}</td>
@@ -37,9 +37,9 @@
 						<td colspan="4">Aucune donnée</td>
 					</tr>
 				{% endfor %}
-			</tbody>
-		</table>
+		{% endblock %}
+		{% block button %}	<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_company_new') }}">Ajouter</a>{% endblock %}
 
-		<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_company_new') }}">Ajouter</a>
-	</div>
+	{% endembed %}
+	
 {% endblock %}

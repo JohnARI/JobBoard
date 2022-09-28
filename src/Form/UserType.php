@@ -30,7 +30,7 @@ class UserType extends AbstractType
                     'Recruteur' => 'ROLE_RECRUITER',
                     'Utilisateur' => 'ROLE_USER',
                 ],
-                
+
             ])
             ->add('password', PasswordType::class)
             ->add('firstname', TextType::class)
@@ -40,8 +40,24 @@ class UserType extends AbstractType
             ->add('sector', EntityType::class, [
                 'class' => Sector::class,
                 'choice_label' => 'name',
+            ])
+            ->add('company', ChoiceType::class, [
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder' => 'Choisissez une entreprise',
+                'choices' => [
+                    'Gogole' => 'Gogole',
+                    'Mamazon' => 'Mamazon',
+                    'Société De Gaulle' => 'Société De Gaulle',
+                    'Microhard' => 'Microhard',
+                    'Pear' => 'Pear',
+                    'Ebayz' => 'Ebayz',
+                    'Meta gueule' => 'Meta gueule',
+                    'Onlysan' => 'Onlysan',
+                ],
+
             ]);
-            $builder->get('roles')
+        $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
                     return count($rolesArray) ? $rolesArray[0] : null;

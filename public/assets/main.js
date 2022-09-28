@@ -3,4 +3,6 @@ $(window).on("load", function () {
     $("#global-loader").fadeOut("slow");
 })
 // Datatable
-$('#user_table').DataTable();
+// $(document).ready(function () {
+//     $('#data-table').css('display', 'none');
+// });
