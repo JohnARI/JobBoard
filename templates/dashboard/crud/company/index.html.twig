@@ -22,13 +22,20 @@
 				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 					<td class="px-6 py-4">{{ company.id }}</td>
 					<td class="px-6 py-4">{{ company.name }}</td>
-					<td class="px-6 py-4">{{ company.sector }}</td>
+					<td class="px-6 py-4">
+						{% if company.sector %}
+							{{ company.sector.name }}
+						{% else %}
+							Aucun
+						{% endif %}
+
+					</td>
 					<td class="px-6 py-4">{{ company.website }}</td>
 					<td class="px-6 py-4 flex gap-4">
-						<a href="{{ path('app_user_show', {'id': company.id}) }}">
+						<a href="{{ path('app_company_show', {'id': company.id}) }}">
 							<i class="fa-solid fa-eye"></i>
 						</a>
-						<a href="{{ path('app_user_edit', {'id': company.id}) }}">
+						<a href="{{ path('app_company_edit', {'id': company.id}) }}">
 							<i class="fa-solid fa-pen-to-square"></i>
 						</a>
 						{{ include('dashboard/crud/company/_delete_form.html.twig') }}

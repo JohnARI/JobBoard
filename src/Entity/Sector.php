@@ -25,19 +25,19 @@ class Sector
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Company::class, inversedBy="sectors")
-     */
-    private $company;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Company::class, mappedBy="Sector")
+     * @ORM\OneToMany(targetEntity=Company::class, mappedBy="sector")
      */
     private $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Job::class, mappedBy="sector")
+     */
+    private $jobs;
+
     public function __construct()
     {
-        $this->company = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,15 +60,16 @@ class Sector
     /**
      * @return Collection<int, Company>
      */
-    public function getCompany(): Collection
+    public function getCompanies(): Collection
     {
-        return $this->company;
+        return $this->companies;
     }
 
     public function addCompany(Company $company): self
     {
-        if (!$this->company->contains($company)) {
-            $this->company[] = $company;
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+            $company->setSector($this);
         }
 
         return $this;
@@ -76,16 +77,43 @@ class Sector
 
     public function removeCompany(Company $company): self
     {
-        $this->company->removeElement($company);
+        if ($this->companies->removeElement($company)) {
+            // set the owning side to null (unless already changed)
+            if ($company->getSector() === $this) {
+                $company->setSector(null);
+            }
+        }
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Company>
+     * @return Collection<int, Job>
      */
-    public function getCompanies(): Collection
+    public function getJobs(): Collection
     {
-        return $this->companies;
+        return $this->jobs;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs[] = $job;
+            $job->setSector($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->jobs->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getSector() === $this) {
+                $job->setSector(null);
+            }
+        }
+
+        return $this;
     }
 }

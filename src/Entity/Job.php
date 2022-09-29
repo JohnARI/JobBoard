@@ -33,11 +33,6 @@ class Job
     private $link;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $salary;
@@ -71,6 +66,11 @@ class Job
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobs")
      */
     private $User;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="jobs")
+     */
+    private $sector;
 
     public function getId(): ?int
     {
@@ -109,18 +109,6 @@ class Job
     public function setLink(?string $link): self
     {
         $this->link = $link;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
 
         return $this;
     }
@@ -207,5 +195,22 @@ class Job
         $this->User = $User;
 
         return $this;
+    }
+
+    public function getSector(): ?Sector
+    {
+        return $this->sector;
+    }
+
+    public function setSector(?Sector $sector): self
+    {
+        $this->sector = $sector;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
