@@ -24,6 +24,22 @@ class Sector
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Company::class, inversedBy="sectors")
+     */
+    private $company;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Company::class, mappedBy="Sector")
+     */
+    private $companies;
+
+    public function __construct()
+    {
+        $this->company = new ArrayCollection();
+        $this->companies = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -39,5 +55,37 @@ class Sector
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Company>
+     */
+    public function getCompany(): Collection
+    {
+        return $this->company;
+    }
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->company->contains($company)) {
+            $this->company[] = $company;
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        $this->company->removeElement($company);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Company>
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
     }
 }

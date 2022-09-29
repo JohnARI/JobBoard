@@ -34,7 +34,7 @@ Back Office | Utilisateur
 					<td class="px-6 py-4">{% if user.company is empty %}
 							Aucun
 						{% else %}
-							0{{ user.company }}
+							{{ user.company }}
 						{% endif %}</td>
 					<td class="px-6 py-4">
 						{% if user.phone is empty %}

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Sector;
+use App\Entity\Company;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,20 +42,10 @@ class UserType extends AbstractType
                 'class' => Sector::class,
                 'choice_label' => 'name',
             ])
-            ->add('company', ChoiceType::class, [
-                'multiple' => false,
-                'expanded' => false,
+            ->add('company', EntityType::class, [
+                'class' => Company::class,
                 'placeholder' => 'Choisissez une entreprise',
-                'choices' => [
-                    'Gogole' => 'Gogole',
-                    'Mamazon' => 'Mamazon',
-                    'Société De Gaulle' => 'Société De Gaulle',
-                    'Microhard' => 'Microhard',
-                    'Pear' => 'Pear',
-                    'Ebayz' => 'Ebayz',
-                    'Meta gueule' => 'Meta gueule',
-                    'Onlysan' => 'Onlysan',
-                ],
+                'choice_label' => 'name',
 
             ]);
         $builder->get('roles')
