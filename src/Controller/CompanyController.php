@@ -81,7 +81,7 @@ class CompanyController extends AbstractController
      */
     public function delete(Request $request, Company $company, CompanyRepository $companyRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$company->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $company->getId(), $request->request->get('_token'))) {
             $companyRepository->remove($company, true);
         }
 

@@ -30,9 +30,9 @@ class Company
     private $website;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Sector::class, inversedBy="companies")
+     * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="companies")
      */
-    private $Sector;
+    private $sector;
 
     public function __construct()
     {
@@ -68,27 +68,20 @@ class Company
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sector>
-     */
-    public function getSector(): Collection
+    public function getSector(): ?Sector
     {
-        return $this->Sector;
+        return $this->sector;
     }
 
-    public function addSector(Sector $sector): self
+    public function setSector(?Sector $sector): self
     {
-        if (!$this->Sector->contains($sector)) {
-            $this->Sector[] = $sector;
-        }
+        $this->sector = $sector;
 
         return $this;
     }
 
-    public function removeSector(Sector $sector): self
+    public function __toString()
     {
-        $this->Sector->removeElement($sector);
-
-        return $this;
+        return $this->name;
     }
 }

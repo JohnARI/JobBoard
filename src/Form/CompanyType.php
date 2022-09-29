@@ -17,11 +17,8 @@ class CompanyType extends AbstractType
             ->add('name')
             ->add('website')
             ->add('sector', EntityType::class, [
-                'allow_add' => true,
                 'class' => Sector::class,
                 'choice_label' => 'name',
-                'mapped' => false,
-
             ]);
     }
 
