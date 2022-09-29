@@ -3,6 +3,7 @@
 <script src="{{asset('assets/main.js')}}"></script>
 <script src="https://kit.fontawesome.com/5860ccadae.js" crossorigin="anonymous"></script>
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
 <script>
 	$(document).ready(function () {
 		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable({
@@ -18,5 +19,32 @@
     $('#menudesktop').on('mouseleave', function() {
 			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
     })
+
+		$('#user_resume').on('change', function(e) {
+			var file = e.target.files[0]
+
+			var fileReader = new FileReader() 	
+
+			fileReader.onload = function() {
+				var typedarray = new Uint8Array(this.result)
+
+				const loadingTask = pdfjsLib.getDocument(typedarray)
+				loadingTask.promise.then(async function(pdf) {
+					var page = await pdf.getPage(1)
+					var canvas = document.getElementById('pdf_preview')
+					var ctx = canvas.getContext('2d')
+					var viewport = page.getViewport({scale: 1})
+					console.log(viewport)
+					canvas.width = viewport.viewBox[2]
+					canvas.height = viewport.viewBox[3]
+
+					page.render({canvasContext: ctx, viewport: viewport, scale: 1})
+
+					if($(canvas).hasClass('hidden')) $(canvas).toggleClass('hidden')
+				})
+
+    	}
+    	fileReader.readAsArrayBuffer(file);
+ 		})
 	});
 </script>

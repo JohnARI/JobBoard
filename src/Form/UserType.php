@@ -22,7 +22,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Email'
+                ]
+            ])
             ->add('roles', ChoiceType::class, [
                 'multiple' => false,
                 'expanded' => false,
@@ -33,18 +38,43 @@ class UserType extends AbstractType
                 ],
 
             ])
-            ->add('password', PasswordType::class)
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('phone', TelType::class)
-            ->add('resume', FileType::class)
+            ->add('password', PasswordType::class, [
+                'attr' => [
+                    'class' => 'border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Password'
+                ]
+            ])
+            ->add('firstname', TextType::class, [
+                'attr' => [
+                    'class' => 'border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Firstname'
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [
+                    'class' => 'border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Lastname'
+                ]
+            ])
+            ->add('phone', TelType::class, [
+                'attr' => [
+                    'class' => 'border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Phone'
+                ]
+            ])
+            ->add('resume', FileType::class, [
+                'attr' => [
+                    'class' => 'border-b-2 border-violet-600 outline-0 h-10',
+                ]
+            ])
             ->add('sector', EntityType::class, [
                 'class' => Sector::class,
+                'placeholder' => 'Choose a sector',
                 'choice_label' => 'name',
             ])
             ->add('company', EntityType::class, [
                 'class' => Company::class,
-                'placeholder' => 'Choisissez une entreprise',
+                'placeholder' => 'Choose a company',
                 'choice_label' => 'name',
 
             ]);

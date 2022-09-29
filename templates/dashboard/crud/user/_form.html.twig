@@ -1,10 +1,30 @@
-{{ form_start(form) }}
-{{ form_widget(form.firstname) }}
-{{ form_widget(form.lastname) }}
-{{ form_widget(form.email) }}
-{{ form_widget(form.password) }}
-{{ form_widget(form.phone) }}
-{{ form_widget(form.resume) }}
-{{ form_widget(form.sector) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class='flex sm:py-10 sm:px-20 md:py-20 md:px-40 px-0 py-0 sm:h-[calc(100vh-5rem)] h-[calc(100vh-5rem)] bg-gray-200'>
+  <div class='flex w-full p-20 gap-6 shadow-xl bg-white rounded'>
+    <div class='flex flex-col'>
+      <h1 class='text-[1.6rem] uppercase'>Create new User</h1>
+      <form method='post' class='flex w-full gap-6 m-auto'>
+        {{ form_start(form) }}
+        <div class='flex flex-col gap-6'>
+          {{ form_widget(form.firstname) }}
+          {{ form_widget(form.lastname) }}
+          {{ form_widget(form.email) }}
+          {{ form_widget(form.password) }}
+        </div>
+        
+        <div class='flex flex-col gap-6'>
+          {{ form_widget(form.phone) }}
+          {{ form_widget(form.resume) }}
+          {{ form_widget(form.sector) }}
+          {{ form_widget(form.roles) }}
+          {{ form_widget(form.company) }}
+          <button class="btn">{{ button_label|default('Save') }}</button>
+          {{ form_end(form) }}
+        </div>
+      </form>
+    </div>
+
+    <div class='relative ml-auto w-1/2 bg-gray-100'>
+      <canvas class='hidden h-full translate-x-[-50%] left-1/2 top-1/2 translate-y-[-50%] top-0 absolute' id='pdf_preview'></canvas>
+    </div>
+  </div>
+</div>
