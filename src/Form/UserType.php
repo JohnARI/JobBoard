@@ -22,8 +22,16 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'mt-6 w-full flex border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Email'
+                ]
+            ])
             ->add('roles', ChoiceType::class, [
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 hover:cursor-pointer hover:bg-violet-100 h-10',
+                ],
                 'multiple' => false,
                 'expanded' => false,
                 'choices' => [
@@ -33,25 +41,57 @@ class UserType extends AbstractType
                 ],
 
             ])
-            ->add('password', PasswordType::class)
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('phone', TelType::class)
+            ->add('password', PasswordType::class, [
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Password'
+                ]
+            ])
+            ->add('firstname', TextType::class, [
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Firstname'
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Lastname'
+                ]
+            ])
+            ->add('phone', TelType::class, [
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
+                    'placeholder' => 'Phone'
+                ]
+            ])
             ->add('resume', FileType::class, [
-                'mapped' => false,
-                'required' => false,
+                'attr' => [
+                    'class' => 'hidden'
+                ],
+                'label' => 'Resume',
+                'label_attr' => [
+                    'class' => 'mt-6 flex w-full py-2 indent-1 hover:cursor-pointer hover:bg-violet-100 border-b-2 border-violet-600 outline-0 h-10'
+                ]
             ])
             ->add('sector', EntityType::class, [
                 'class' => Sector::class,
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 hover:cursor-pointer hover:bg-violet-100 outline-0 h-10'
+                ],
+                'placeholder' => 'Choose a sector',
                 'choice_label' => 'name',
             ])
             ->add('company', EntityType::class, [
                 'class' => Company::class,
-                'placeholder' => 'Choisissez une entreprise',
+                'attr' => [
+                    'class' => 'mt-6 w-full border-b-2 border-violet-600 hover:cursor-pointer hover:bg-violet-100 outline-0 h-10'
+                ],
+                'placeholder' => 'Choose a company',
                 'choice_label' => 'name',
 
             ]);
-        $builder->get('roles')
+            $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
                     return count($rolesArray) ? $rolesArray[0] : null;
