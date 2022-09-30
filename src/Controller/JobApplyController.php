@@ -35,8 +35,8 @@ class JobApplyController extends AbstractController
                 $jobApplication->setFirstname($user->getFirstname()); // Insértion du prénom
                 $jobApplication->setLastname($user->getLastname()); // Insértion du nom
             }
-            $jobApplicationRepository->add($jobApplication, true); // Enregistrement en base de données
             $jobApplication->setCreatedAt(new DateTimeImmutable()); // Set la date de création
+            $jobApplicationRepository->add($jobApplication, true); // Enregistrement en base de données
             return $this->redirectToRoute('app_user_home', [], Response::HTTP_SEE_OTHER); // Redirection vers la liste des annonces
             $this->addFlash('Félicitation', 'Votre candidature a bien été envoyée'); // Message flash
         }
