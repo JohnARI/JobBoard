@@ -7,23 +7,17 @@
 <script>
 	$(document).ready(function () {
 		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable();
-
-$('#profilemenuBtn').on('mouseenter', function () {
-if ($('#profilemenu').hasClass('hidden')) 
-$('#profilemenu').toggleClass('hidden')
-
+    $('#profilemenuBtn').on('mouseenter', function() {
+				if ($('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
+    })
     $('#menudesktop').on('mouseleave', function() {
 			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
     })
-
 		$('#user_resume').on('change', function(e) {
 			var file = e.target.files[0]
-
 			var fileReader = new FileReader() 	
-
 			fileReader.onload = function() {
 				var typedarray = new Uint8Array(this.result)
-
 				const loadingTask = pdfjsLib.getDocument(typedarray)
 				loadingTask.promise.then(async function(pdf) {
 					var page = await pdf.getPage(1)
@@ -33,14 +27,10 @@ $('#profilemenu').toggleClass('hidden')
 					
 					canvas.width = viewport.viewBox[2]
 					canvas.height = viewport.viewBox[3]
-
 					page.render({canvasContext: ctx, viewport: viewport, scale: 1})
-
 					if($(canvas).hasClass('hidden')) $(canvas).toggleClass('hidden')
-
 					$("label[for='user_resume']")[0].innerHTML = file.name
 				})
-
     	}
     	fileReader.readAsArrayBuffer(file);
  		})
