@@ -1,81 +1,82 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Back Office | Utilisateur
+Dashboard | Users
 {% endblock %}
 
 {% block body %}
-	{% embed "components/table.html.twig" %}
-		{% set id = 'data-table-user' %}
-		{% block tableTitle %}
-			<h1>User index</h1>
-		{% endblock %}
-		{% block th %}
-			<th class="px-6 py-3">Id</th>
-			<th class="px-6 py-3">Email</th>
-			<th class="px-6 py-3">Roles</th>
-			<th class="px-6 py-3">Firstname</th>
-			<th class="px-6 py-3">Lastname</th>
-			<th class="px-6 py-3">Entreprise</th>
-			<th class="px-6 py-3">Phone</th>
-			<th class="px-6 py-3">Resume</th>
-			<th class="px-6 py-3">Sector</th>
-			<th class="px-6 py-3">Is Verified</th>
-			<th class="px-6 py-3">Actions</th>
-		{% endblock %}
-		{% block tbody %}
-			{% for user in users %}
-				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
-					<td class="px-6 py-4">{{ user.id }}</td>
-					<td class="px-6 py-4">{{ user.email }}</td>
-					<td class="px-6 py-4">{{ user.role}}</td>
-					<td class="px-6 py-4">{{ user.firstname }}</td>
-					<td class="px-6 py-4">{{ user.lastname }}</td>
-					<td class="px-6 py-4">{% if user.company is empty %}
-							Aucun
-						{% else %}
-							{{ user.company }}
-						{% endif %}</td>
-					<td class="px-6 py-4">
-						{% if user.phone is empty %}
-							Aucun
-						{% else %}
-							0{{ user.phone }}
-						{% endif %}
-					</td>
-					<td class="px-6 py-4">
-						{% if user.resume is empty %}
-							Aucun
-						{% else %}
-							{{ user.resume }}
-						{% endif %}
-					</td>
-					<td class="px-6 py-4">
-						{% if user.sector is empty %}
-							Aucun
-						{% else %}
-							{{ user.sector}}
-						{% endif %}
-					</td>
-					<td class="px-6 py-4">{{ user.isVerified ? 'Yes' : 'No' }}</td>
-					<td class="px-6 py-4 flex gap-4">
-						<a href="{{ path('app_user_show', {'id': user.id}) }}">
-							<i class="fa-solid fa-eye"></i>
-						</a>
-						<a href="{{ path('app_user_edit', {'id': user.id}) }}">
-							<i class="fa-solid fa-pen-to-square"></i>
-						</a>
-						{{ include('dashboard/crud/user/_delete_form.html.twig') }}
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="10">Aucune donnée</td>
-				</tr>
-			{% endfor %}
-		{% endblock %}
-		{% block button %}
-			<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{path('app_user_new')}}">Ajouter</a>
-		{% endblock %}
-	{% endembed %}
+	<h1 class='text-[2.1rem] font-bold uppercase text-center mt-10'>Dashboard</h1>
+	<div class='flex flex-col w-full sm:h-[calc(100vh-4rem)] h-[calc(100vh-5rem)] py-20 px-10 justify-center'>
+		{% embed "components/table.html.twig" %}
+			{% set id = 'data-table-user' %}
+			{% block th %}
+				<th class="px-6 py-3">Id</th>
+				<th class="px-6 py-3">Email</th>
+				<th class="px-6 py-3">Roles</th>
+				<th class="px-6 py-3">Firstname</th>
+				<th class="px-6 py-3">Lastname</th>
+				<th class="px-6 py-3">Entreprise</th>
+				<th class="px-6 py-3">Phone</th>
+				<th class="px-6 py-3">Resume</th>
+				<th class="px-6 py-3">Sector</th>
+				<th class="px-6 py-3">Is Verified</th>
+				<th class="px-6 py-3">Actions</th>
+			{% endblock %}
+			{% block tbody %}
+				{% for user in users %}
+					<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
+						<td class="px-6 py-4">{{ user.id }}</td>
+						<td class="px-6 py-4">{{ user.email }}</td>
+						<td class="px-6 py-4">{{ user.role}}</td>
+						<td class="px-6 py-4">{{ user.firstname }}</td>
+						<td class="px-6 py-4">{{ user.lastname }}</td>
+						<td class="px-6 py-4">{% if user.company is empty %}
+								None
+							{% else %}
+								{{ user.company }}
+							{% endif %}</td>
+						<td class="px-6 py-4">
+							{% if user.phone is empty %}
+								None
+							{% else %}
+								0{{ user.phone }}
+							{% endif %}
+						</td>
+						<td class="px-6 py-4">
+							{% if user.resume is empty %}
+								None
+							{% else %}
+								{{ user.resume }}
+							{% endif %}
+						</td>
+						<td class="px-6 py-4">
+							{% if user.sector is empty %}
+								None
+							{% else %}
+								{{ user.sector}}
+							{% endif %}
+						</td>
+						<td class="px-6 py-4">{{ user.isVerified ? 'Yes' : 'No' }}</td>
+						<td class="px-6 py-4 flex gap-4">
+							<a href="{{ path('app_user_show', {'id': user.id}) }}">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+							<a href="{{ path('app_user_edit', {'id': user.id}) }}">
+								<i class="fa-solid fa-pen-to-square"></i>
+							</a>
+							{{ include('dashboard/crud/user/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="10">No data</td>
+					</tr>
+				{% endfor %}
+			{% endblock %}
+			{% block button %}
+				<a class='ml-auto bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{path('app_user_new')}}">Add</a>
+			{% endblock %}
+		{% endembed %}
+
+	</div>
 {% endblock %}

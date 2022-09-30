@@ -6,11 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
 <script>
 	$(document).ready(function () {
-		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable({
-			language: {
-				url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
-			}
-		});
+		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable();
 
     $('#profilemenuBtn').on('mouseenter', function() {
 				if ($('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
@@ -34,13 +30,15 @@
 					var canvas = document.getElementById('pdf_preview')
 					var ctx = canvas.getContext('2d')
 					var viewport = page.getViewport({scale: 1})
-					console.log(viewport)
+					
 					canvas.width = viewport.viewBox[2]
 					canvas.height = viewport.viewBox[3]
 
 					page.render({canvasContext: ctx, viewport: viewport, scale: 1})
 
 					if($(canvas).hasClass('hidden')) $(canvas).toggleClass('hidden')
+
+					$("label[for='user_resume']")[0].innerHTML = file.name
 				})
 
     	}
