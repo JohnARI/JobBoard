@@ -24,7 +24,8 @@ class JobApplication
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * TODO: Une fois le FileUploader fait, mettre nullable=false
      */
     private $resume;
 
@@ -52,6 +53,16 @@ class JobApplication
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
     private $experiences;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=job::class, inversedBy="jobApplications")
+     */
+    private $job;
 
     public function getId(): ?int
     {
@@ -138,6 +149,30 @@ class JobApplication
     public function setExperiences(?string $experiences): self
     {
         $this->experiences = $experiences;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getJob(): ?job
+    {
+        return $this->job;
+    }
+
+    public function setJob(?job $job): self
+    {
+        $this->job = $job;
 
         return $this;
     }

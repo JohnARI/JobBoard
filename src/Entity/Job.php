@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,6 +73,16 @@ class Job
      * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="jobs")
      */
     private $sector;
+
+    /**
+     * @ORM\OneToMany(targetEntity=JobApplication::class, mappedBy="job")
+     */
+    private $jobApplications;
+
+    public function __construct()
+    {
+        $this->jobApplications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -205,6 +217,36 @@ class Job
     public function setSector(?Sector $sector): self
     {
         $this->sector = $sector;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JobApplication>
+     */
+    public function getJobApplications(): Collection
+    {
+        return $this->jobApplications;
+    }
+
+    public function addJobApplication(JobApplication $jobApplication): self
+    {
+        if (!$this->jobApplications->contains($jobApplication)) {
+            $this->jobApplications[] = $jobApplication;
+            $jobApplication->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobApplication(JobApplication $jobApplication): self
+    {
+        if ($this->jobApplications->removeElement($jobApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($jobApplication->getJob() === $this) {
+                $jobApplication->setJob(null);
+            }
+        }
 
         return $this;
     }

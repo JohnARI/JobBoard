@@ -30,7 +30,7 @@
 				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 					<td class="px-6 py-4">{{ job.id }}</td>
 					<td class="px-6 py-4">{{ job.title }}</td>
-					<td class="px-6 py-4">{{ job.description }}</td>
+					<td class="px-6 py-4">{{job.description | length > 30 ? job.description|slice(0, 30) ~ '...' : job.description}}</td>
 					<td class="px-6 py-4">{{ job.link }}</td>
 					<td class="px-6 py-4">{{ job.sector }}</td>
 					<td class="px-6 py-4">{{ job.salary }}</td>

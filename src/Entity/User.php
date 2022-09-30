@@ -66,10 +66,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $resume;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $sector;
 
     /**
      * @ORM\Column(type="boolean")
@@ -82,9 +78,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $jobs;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="users")
      */
     private $company;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="users")
+     */
+    private $sector;
+
 
     public function __construct()
     {
@@ -281,18 +283,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSector(): ?string
-    {
-        return $this->sector;
-    }
-
-    public function setSector(?string $sector): self
-    {
-        $this->sector = $sector;
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -335,14 +325,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCompany(): ?string
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
 
-    public function setCompany(string $company): self
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getSector(): ?Sector
+    {
+        return $this->sector;
+    }
+
+    public function setSector(?Sector $sector): self
+    {
+        $this->sector = $sector;
 
         return $this;
     }

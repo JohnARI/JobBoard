@@ -29,9 +29,15 @@ class JobTypes
      */
     private $jobs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Company::class, mappedBy="jobTypes")
+     */
+    private $companies;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,5 +90,35 @@ class JobTypes
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return Collection<int, Company>
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+            $company->setJobTypes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        if ($this->companies->removeElement($company)) {
+            // set the owning side to null (unless already changed)
+            if ($company->getJobTypes() === $this) {
+                $company->setJobTypes(null);
+            }
+        }
+
+        return $this;
     }
 }

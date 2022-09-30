@@ -5,18 +5,29 @@
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
 	$(document).ready(function () {
-		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable({
-			language: {
-				url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
-			}
-		});
+$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable({
+language: {
+url: '//cdn.datatables.net/plug-ins/1.10.22/i18n/French.json'
+}
+});
 
-    $('#profilemenuBtn').on('mouseenter', function() {
-				if ($('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-    })
+$('#profilemenuBtn').on('mouseenter', function () {
+if ($('#profilemenu').hasClass('hidden')) 
+$('#profilemenu').toggleClass('hidden')
 
-    $('#menudesktop').on('mouseleave', function() {
-			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-    })
-	});
+})
+
+$('#menudesktop').on('mouseleave', function () {
+if (!$('#profilemenu').hasClass('hidden')) 
+$('#profilemenu').toggleClass('hidden')
+
+})
+
+let error = document.querySelector('#errorMessage');
+setTimeout(function () {
+$(error).fadeOut("slow");
+}, 5000)
+
+
+});
 </script>

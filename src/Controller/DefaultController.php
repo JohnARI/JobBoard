@@ -13,18 +13,18 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
-        if (!$this->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('app_login');
+        if (!$this->isGranted('ROLE_USER')) { // Si l'utilisateur n'est pas connecté
+            return $this->redirectToRoute('app_login'); 
         }
-        if ($user = $this->getUser()) {
+        if ($user = $this->getUser()) { // Si l'utilisateur est connecté
             $role = $user->getRole();
             switch ($role) {
-                case 'Utilisateur':
-                    return $this->redirectToRoute('user_home');
-                case 'Recruteur':
+                case 'Utilisateur': // Si l'utilisateur est un utilisateur
+                    return $this->redirectToRoute('app_user_home');
+                case 'Recruteur': // Si l'utilisateur est un recruteur
                     return $this->redirectToRoute('recruiter_home');
-                case 'Administrateur':
-                    return $this->redirectToRoute('admin_home');
+                case 'Administrateur': // Si l'utilisateur est un administrateur
+                    return $this->redirectToRoute('app_user_home'); //TODO: changer la route quand la page admin sera créée
             }
         }
     }

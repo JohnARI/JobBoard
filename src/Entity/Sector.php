@@ -34,10 +34,21 @@ class Sector
      */
     private $jobs;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $region;
+
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="sector")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->companies = new ArrayCollection();
         $this->jobs = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,5 +131,47 @@ class Sector
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function isRegion(): ?bool
+    {
+        return $this->region;
+    }
+
+    public function setRegion(bool $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setSector($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getSector() === $this) {
+                $user->setSector(null);
+            }
+        }
+
+        return $this;
     }
 }

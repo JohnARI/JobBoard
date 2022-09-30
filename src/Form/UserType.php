@@ -37,7 +37,10 @@ class UserType extends AbstractType
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
             ->add('phone', TelType::class)
-            ->add('resume', FileType::class)
+            ->add('resume', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+            ])
             ->add('sector', EntityType::class, [
                 'class' => Sector::class,
                 'choice_label' => 'name',

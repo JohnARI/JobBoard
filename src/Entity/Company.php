@@ -34,9 +34,20 @@ class Company
      */
     private $sector;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="company")
+     */
+    private $users;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=JobTypes::class, inversedBy="companies")
+     */
+    private $jobTypes;
+
     public function __construct()
     {
         $this->Sector = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,5 +94,47 @@ class Company
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getCompany() === $this) {
+                $user->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getJobTypes(): ?JobTypes
+    {
+        return $this->jobTypes;
+    }
+
+    public function setJobTypes(?JobTypes $jobTypes): self
+    {
+        $this->jobTypes = $jobTypes;
+
+        return $this;
     }
 }
