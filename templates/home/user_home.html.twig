@@ -4,39 +4,47 @@
 {% endblock %}
 
 {% block body %}
-	{% for job in jobsPage %}
-		<div class="rounded-md w-full bg-white px-4 py-4">
-			<div class="flex flex-col justify-start">
-				<div class="flex justify-between items-center w-96">
-					<div class="text-lg font-semibold text-bookmark-blue flex space-x-1 items-center mb-2">
-						<i class="fa-solid fa-computer"></i>
-						<span>{{job.title}}</span>
+	<div class='overflow-hidden flex h-[calc(100vh-4rem)] '>
+		<div class='flex flex-col w-1/2 p-20 gap-6 overflow-y-scroll'>
+			{% for job in jobsPage %}
+				<div class="hover:cursor-pointer 	w-full rounded border border-gray-400 p-20">
+					<div class="flex flex-col justify-start">
+						<div class="flex justify-between items-center w-96">
+							<div class="text-lg font-semibold text-bookmark-blue flex space-x-1 items-center mb-2">
+								<i class="fa-solid fa-computer"></i>
+								<span class='indent-2'>{{job.title}}</span>
+							</div>
+							<span class="text-gray-600">{{job.createdAt | date('d/m/Y')}}
+							</span>
+						</div>
+						<span class="w-32 text-center bg-green-500 rounded-full text-white text-sm px-4 py-1 font-bold shadow-xl">
+							{{job.salary | number_format(0, ',', ' ')}}
+							€
+						</span>
+						<div class="text-sm text-gray-500 flex space-x-1 items-center">
+							<i class="fa-solid fa-location-dot"></i>
+							<span>{{job.sector}}</span>
+						</div>
+						<div class="text-sm text-gray-500 flex space-x-1 items-center">
+							<i class="fa-solid fa-building"></i>
+							<span>Entreprise : {{job.user.company}}</span>
+						</div>
+						<div>
+							<div class="mt-5">
+								<a href="{{ path('app_job_apply', {'id': job.id}) }}" class="mr-2 my-1 uppercase tracking-wider px-2 text-violet-600 border-violet-600 hover:bg-violet-600 hover:text-white border text-sm font-semibold rounded py-1 transition transform duration-500 cursor-pointer">Continuer pour postuler</a>
+							</div>
+						</div>
 					</div>
-					<span class="bg-green-500 rounded-full uppercase text-white text-sm px-4 py-1 font-bold shadow-xl">
-						Disponible depuis
-						{{job.createdAt | date('d/m/Y')}}
-					</span>
 				</div>
-				<span class="w-32 text-center bg-green-500 rounded-full text-white text-sm px-4 py-1 font-bold shadow-xl">
-					{{job.salary | number_format(0, ',', ' ')}}
-					€
-				</span>
-				<div class="text-sm text-gray-500 flex space-x-1 items-center">
-					<i class="fa-solid fa-location-dot"></i>
-					<span>{{job.sector}}</span>
-				</div>
-				<div class="text-sm text-gray-500 flex space-x-1 items-center">
-					<i class="fa-solid fa-building"></i>
-					<span>Entreprise : {{job.user.company}}</span>
-				</div>
-				<div>
-					<div class="mt-5">
-						<a href="{{ path('app_job_apply', {'id': job.id}) }}" class="mr-2 my-1 uppercase tracking-wider px-2 text-violet-600 border-violet-600 hover:bg-violet-600 hover:text-white border text-sm font-semibold rounded py-1 transition transform duration-500 cursor-pointer">Continuer pour postuler</a>
-					</div>
-				</div>
+			{% endfor %}
+			{{ knp_pagination_render(jobsPage) }}
+		</div>
+
+		<div class='flex flex-col w-1/2 p-20 gap-6'>
+			<div class='flex border border-gray-400 rounded h-full overflow-y-auto'>
+				// TON CODE ICI
 			</div>
 		</div>
-	{% endfor %}
-	{{ knp_pagination_render(jobsPage) }}
+	</div>
 
 {% endblock %}

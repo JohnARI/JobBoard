@@ -11,10 +11,11 @@
     $('#profilemenuBtn').on('mouseenter', function() {
 				if ($('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
     })
+		
     $('#menudesktop').on('mouseleave', function() {
 			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
     })
-		
+
 		$('#user_resume').on('change', function(e) {
 			var file = e.target.files[0]
 			var fileReader = new FileReader() 	
