@@ -8,13 +8,13 @@
 	$(document).ready(function () {
 		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable();
 
-$('#profilemenuBtn').on('mouseenter', function () {
-if ($('#profilemenu').hasClass('hidden')) 
-$('#profilemenu').toggleClass('hidden')
+		$('#profilemenuBtn').on('mouseenter', function () {
+			if ($('#profilemenu').hasClass('hidden'))  $('#profilemenu').toggleClass('hidden')
+		})
 
-    $('#menudesktop').on('mouseleave', function() {
+		$('#menudesktop').on('mouseleave', function() {
 			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-    })
+		})
 
 		$('#user_resume').on('change', function(e) {
 			var file = e.target.files[0]
@@ -47,7 +47,7 @@ $('#profilemenu').toggleClass('hidden')
 	});
 
 	let error = document.querySelector('#errorMessage');
-setTimeout(function () {
-$(error).fadeOut("slow");
-}, 5000)
+	setTimeout(function () {
+		$(error).fadeOut("slow");
+	}, 5000)
 </script>
