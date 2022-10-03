@@ -1,4 +1,13 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% embed "components/form.html.twig" %}
+{% block input %}
+{{form_widget(form.title)}}
+{{form_widget(form.description)}}
+{{form_widget(form.link)}}
+{{form_widget(form.sector)}}
+{{form_widget(form.salary)}}
+{{form_widget(form.contract_type)}}
+{{form_widget(form.start)}}
+{{form_widget(form.end)}}
+{{form_widget(form.jobType)}}
+{% endblock %}
+{% endembed %}

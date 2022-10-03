@@ -6,11 +6,9 @@
 
 {% block body %}
 {% embed "components/table.html.twig" %}
+{% set title = 'Sector Dashboard' %}
 	{% set id = 'data-table-sector' %}
 	{% set path = "{{ path('app_sector_new') }}" %}
-	{% block tableTitle %}
-		<h1>Secteur</h1>
-	{% endblock %}
 	{% block th %}
 		<th class="px-6 py-3">Id</th>
 		<th class="px-6 py-3">Name</th>

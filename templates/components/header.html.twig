@@ -1,79 +1,57 @@
-{% block header %}
-	<div class='flex w-screen shadow'>
-		<button id='burger' class='z-10 sm:hidden flex flex-col justify-center gap-2 h-20 w-20 relative'>
-			<span class='flex w-1/2 h-[2px] bg-stone-800 mx-auto transition-transform'></span>
-			<span class='flex w-1/2 h-[2px] bg-stone-800 mx-auto'></span>
-			<span class='flex w-1/2 h-[2px] bg-stone-800 mx-auto transition-transform'></span>
-		</button>
+{% block header %}        
+    <div class='flex shadow'>
+        <button id='burger' class='z-10 sm:hidden flex flex-col justify-center gap-2 h-20 w-20 relative'>
+            <span class='flex w-1/2 h-[2px] bg-stone-800 mx-auto transition-transform'></span>
+            <span class='flex w-1/2 h-[2px] bg-stone-800 mx-auto'></span>
+            <span class='flex w-1/2 h-[2px] bg-stone-800 mx-auto transition-transform'></span>
+        </button>
 
-		<ul id='menudesktop' class='z-20 bg-white sm:flex hidden px-6 w-full gap-6 sm:h-16 h-20 font-["Poppins"] text-xl text-violet-600'>
-			<li class='uppercase font-bold sm:my-auto'>
-				<a class='flex gap-2' href='/'>
-					<h1>BallTeaser</h1>
+        <ul id='menudesktop' class='sm:flex hidden px-6 w-full gap-6 sm:h-16 h-20 font-["Poppins"] text-xl text-violet-600'>        
+            <li class='uppercase font-bold sm:my-auto'>
+                <a class='flex gap-2' href='/'>
+                    <h1>BallTeaser</h1>
+                    
+                    <img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}'>
+                </a>
+            </li>
 
-					<img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}'>
-				</a>
-			</li>
+            <li class='flex ml-auto my-auto outline-0'>
+                <input class='text-black text-[1rem] w-92 outline-0 active:border-violet-600 border-b-2 my-auto' placeholder='Search for a job' autocomplete="off" type='text' id='searchdesktop' name='search'>
+                <label class='my-auto' for='searchdesktop'><img class='h-6 invert-[50%]' src='{{asset('assets/images/search.png')}}'></label>
+            </li>
+            <li class='my-auto'><a href=''><img class='h-6 invert-[50%]' src='{{asset('assets/images/notif.png')}}'></a></li>
+            <li id='profilemenuBtn' class='my-auto hover:cursor-pointer'><a class='h-full w-full bg-red-500'><img class='h-6 invert-[50%]' src='{{asset('assets/images/profile.png')}}'></a></li>
+                    
+            <li id='profilemenu' class='hidden absolute top-16 text-[1rem] text-stone-800 right-4 bg-white shadow w-64'>
+                <ul class='flex flex-col p-5 gap-2'>
+                    <li><a href=''>Profile</a></li>
+										{% if app.user and app.user.role == 'Administrateur' %}<li><a href="{{path('admin_home')}}">Dashboard</a></li> {% else %}
+										<li><a href=''>Job applications</a></li>
+											 {% endif %}
+										
+                    
+                    <li class='text-red-400'><a href='{{path("app_logout")}}'>Log out</a></li>
+                </ul>
+            </li>
+        </ul>
 
-			<li class='flex ml-auto my-auto outline-0'>
-				<input class='text-black text-[1rem] w-92 outline-0 active:border-violet-600 border-b-2 my-auto' placeholder='Search for a job' autocomplete="off" type='text' id='searchdesktop' name='search'>
-				<label class='my-auto' for='searchdesktop'><img class='h-6 invert-[50%]' src='{{asset('assets/images/search.png')}}'></label>
-			</li>
-			<li class='my-auto'>
-				<a href=''><img class='h-6 invert-[50%]' src='{{asset('assets/images/notif.png')}}'></a>
-			</li>
-			<li id='profilemenuBtn' class='my-auto hover:cursor-pointer'>
-				<a class='h-full w-full bg-red-500'><img class='h-6 invert-[50%]' src='{{asset('assets/images/profile.png')}}'></a>
-			</li>
+        <ul id='menumobile' class='sm:hidden flex absolute top-0 left-0 flex-col w-full gap-6 font-["Poppins"] text-2xl text-violet-600'>        
+            <li class='uppercase flex justify-center font-bold h-20 shadow'>
+                <a class='flex gap-2 m-auto' href='/'>
+                    <h1>BallTeaser</h1>
+                    
+                    <img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}'>
+                </a>
+            </li>
 
-			<li id='profilemenu' class='hidden absolute top-16 text-[1rem] text-stone-800 right-4 bg-white shadow w-64'>
-				<ul class='flex flex-col p-5 gap-2'>
-					<li>
-						<a href=''>Profile</a>
-					</li>
-					{% if app.user.role == 'Administrateur' %}
-						<li>
-							<a href='{{path('admin_home')}}'>Dashboard</a>
-						</li>
-					{% else %}
-						<li>
-							<a href=''>Job applications</a>
-						</li>
-
-					{% endif %}
-					<li class='text-red-400'>
-						<a href='{{path("app_logout")}}'>Log out</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-
-		<ul id='menumobile' class='z-20 bg-white sm:hidden flex absolute top-0 left-0 flex-col w-full gap-6 font-["Poppins"] text-2xl text-violet-600'>
-			<li class='uppercase flex justify-center font-bold h-20 shadow'>
-				<a class='flex gap-2 m-auto' href='/'>
-					<h1>BallTeaser</h1>
-
-					<img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}'>
-				</a>
-			</li>
-
-			<li class='outline-0 mx-auto flex hidden w-full gap-2 p-10'>
-				<input class='text-black text-[1.3rem] w-full outline-0 active:border-violet-600 border-b-2 ' placeholder='Search for a job' autocomplete="off" type='text' id='searchmobile' name='search'>
-				<label class='' for='searchmobile'><img class='h-7 w-7 invert-[50%]' src='{{asset('assets/images/search.png')}}'></label>
-			</li>
-			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/notif.png')}}'>Notifications</a>
-			</li>
-			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}'>Profile</a>
-			</li>
-			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}'>Job applications</a>
-			</li>
-			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href='{{path("app_logout")}}'><img class='h-7 invert-[50%]' src='{{asset('assets/images/logout.png')}}'>Logout</a>
-			</li>
-		</ul>
-	</div>
+            <li class='outline-0 mx-auto flex hidden w-full gap-2 p-10'>
+                <input class='text-black text-[1.3rem] w-full outline-0 active:border-violet-600 border-b-2 ' placeholder='Search for a job' autocomplete="off" type='text' id='searchmobile' name='search'>
+                <label class='' for='searchmobile'><img class='h-7 w-7 invert-[50%]' src='{{asset('assets/images/search.png')}}'></label>
+            </li>
+            <li class='text-stone-800 text-lg uppercase hidden mx-10'><a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/notif.png')}}'>Notifications</a></li>
+            <li class='text-stone-800 text-lg uppercase hidden mx-10'><a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}'>Profile</a></li>
+            <li class='text-stone-800 text-lg uppercase hidden mx-10'><a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}'>Job applications</a></li>
+            <li class='text-stone-800 text-lg uppercase hidden mx-10'><a class='flex gap-6' href='{{path("app_logout")}}'><img class='h-7 invert-[50%]' src='{{asset('assets/images/logout.png')}}'>Logout</a></li>
+        </ul>
+    </div>
 {% endblock %}
-{% block error %}{% endblock %}

@@ -6,10 +6,8 @@
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
+{% set title = 'Job Dashboard' %}
 		{% set id = 'data-table-jobtypes' %}
-		{% block tableTitle %}
-			<h1>Annonce de travail</h1>
-		{% endblock %}
 		{% block th %}
 			<th class="px-6 py-3">Id</th>
 			<th class="px-6 py-3">Title</th>
@@ -60,4 +58,4 @@
 			<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_job_new') }}">Ajouter</a>
 		{% endblock %}
 	{% endembed %}
-</div>{% endblock %}
+	{% endblock %}
