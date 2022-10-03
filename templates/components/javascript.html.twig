@@ -43,4 +43,17 @@
 	setTimeout(function () {
 		$(error).fadeOut("slow");
 	}, 5000)
+
+	function setSideJob(title, salary, sector, desc, company, id) {
+		if ($('#sideJob').hasClass('hidden')) $('#sideJob').toggleClass('hidden')
+		if (!$('#jobList').hasClass('w-1/2')) $('#jobList').toggleClass('w-1/2 px-80')
+		$('#applyButton').attr('href', `/job/apply/${id}`)
+		$('#sideJobTitle').html(title)
+		$('#sideJobSalary').html(salary)
+		$('#sideJobSector').html(sector)
+		$('#sideJobDescription').html(desc)
+		$('#sideJobCompany').html(company)
+	}
+
+	console.log(true+false+false)
 </script>
