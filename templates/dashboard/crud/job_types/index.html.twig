@@ -6,10 +6,8 @@ Back Office | Domaine
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
+{% set title = 'Job Types Dashboard' %}
 		{% set id = 'data-table-jobtypes' %}
-		{% block tableTitle %}
-			<h1>Domaine</h1>
-		{% endblock %}
 		{% block th %}
 			<th class="px-6 py-3">Id</th>
 			<th class="px-6 py-3">Title</th>

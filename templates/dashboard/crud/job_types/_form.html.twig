@@ -1,4 +1,5 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% embed "components/form.html.twig" %}
+{% block input %}
+{{form_widget(form.title)}}
+{% endblock %}
+{% endembed %}

@@ -6,10 +6,8 @@
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
+		{% set title = 'Company Dashboard' %}
 		{% set id = 'data-table-company' %}
-		{% block tableTitle %}
-			<h1>Entreprises</h1>
-		{% endblock %}
 		{% block th %}
 			<th class="px-6 py-3">Id</th>
 			<th class="px-6 py-3">Nom</th>
@@ -48,7 +46,7 @@
 			{% endfor %}
 		{% endblock %}
 		{% block button %}
-			<a class='bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_company_new') }}">Ajouter</a>
+			<a class='mx-10 bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_company_new') }}">Ajouter</a>
 		{% endblock %}
 
 	{% endembed %}

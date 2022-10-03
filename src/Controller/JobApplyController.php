@@ -26,7 +26,7 @@ class JobApplyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($jobApplicationRepository->findOneBy(['job' => $job, 'user' => $user])) {
-                $this->addFlash('Erreur', 'Vous avez déjà postulé à cette offre !');
+                $this->addFlash('red', 'Vous avez déjà postulé à cette offre !');
                 return $this->redirectToRoute('app_user_home');
             }
             $jobApplication->setUser($user); // Insértion de l'utilisateur
@@ -37,8 +37,8 @@ class JobApplyController extends AbstractController
             }
             $jobApplication->setCreatedAt(new DateTimeImmutable()); // Set la date de création
             $jobApplicationRepository->add($jobApplication, true); // Enregistrement en base de données
+            $this->addFlash('green', 'Votre candidature a bien été envoyée'); // Message flash
             return $this->redirectToRoute('app_user_home', [], Response::HTTP_SEE_OTHER); // Redirection vers la liste des annonces
-            $this->addFlash('Félicitation', 'Votre candidature a bien été envoyée'); // Message flash
         }
 
         return $this->render('job_apply/index.html.twig', [
