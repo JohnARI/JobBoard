@@ -4,6 +4,13 @@
 {% endblock %}
 {% block body %}
 	<div class='overflow-hidden flex h-[calc(100vh-4rem)] '>
+		<input type="text" name="jobtype" list="jobtype">
+		<datalist id="jobtype">
+			{% for jobtype in jobTypes %}
+				<option value="{{ jobtype.title }}"></option>
+			{% endfor %}
+		</datalist>
+
 		<div id='jobList' class='flex flex-col p-20 px-80 gap-6 overflow-y-scroll'>
 			{% for job in jobsPage %}
 				<div onclick="setSideJob(`{{job.title}}`, `{{job.salary}}`, `{{job.sector}}`, `{{job.description}}`, `{{job.user.company}}`, `{{job.id}}`)" class="hover:cursor-pointer	w-full rounded border border-gray-400 p-10">
@@ -17,7 +24,8 @@
 						</div>
 						<span class="text-sm text-gray-500 flex gap-1 items-center">
 							<i class="fa-solid fa-dollar"></i>
-							{{job.salary | number_format(0, ',', ' ')}} €
+							{{job.salary | number_format(0, ',', ' ')}}
+							€
 						</span>
 						<div class="text-sm text-gray-500 flex gap-1 items-center">
 							<i class="fa-solid fa-location-dot"></i>
@@ -44,15 +52,18 @@
 
 				<div class='flex flex-col gap-6 text-gray-500'>
 					<span class='flex gap-2 items-center'>
-							<i class="fa-solid fa-dollar"></i><p id='sideJobSalary'></p>
+						<i class="fa-solid fa-dollar"></i>
+						<p id='sideJobSalary'></p>
 					</span>
 
 					<span class='flex gap-2 items-center'>
-						<i class="fa-solid fa-location-dot"></i><p id='sideJobSector'></p>
+						<i class="fa-solid fa-location-dot"></i>
+						<p id='sideJobSector'></p>
 					</span>
 
 					<span class='flex gap-2 items-center'>
-						<i class="fa-solid fa-building"></i><p id='sideJobCompany'></p>
+						<i class="fa-solid fa-building"></i>
+						<p id='sideJobCompany'></p>
 					</span>
 
 					<span class='flex'>
