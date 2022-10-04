@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfilController extends AbstractController
 {
-    #[Route('/profil/{id}', name: 'app_my_profil')]
+    #[Route('/profil/{id}', name: 'app_my_profile')]
     public function myProfil(): Response
     {
 
