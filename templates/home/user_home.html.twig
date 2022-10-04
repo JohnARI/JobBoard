@@ -3,41 +3,54 @@
 {% block title %}Accueil
 {% endblock %}
 {% block body %}
-	<div class='overflow-hidden flex h-[calc(100vh-4rem)] '>
-		<input type="text" name="jobtype" list="jobtype">
-		<datalist id="jobtype">
-			{% for jobtype in jobTypes %}
-				<option value="{{ jobtype.title }}"></option>
-			{% endfor %}
-		</datalist>
-
+	<div class='overflow-hidden flex flex h-[calc(100vh-4rem)]'>
 		<div id='jobList' class='flex flex-col p-20 px-80 gap-6 overflow-y-scroll'>
+			<div class='flex gap-6'>
+				<input type='text' name='jobtype' list='jobtype' placeholder='Select a job' class='rounded px-2 outline-0 border border-gray-600 w-64 h-10'>
+
+				<datalist id='jobtype'>
+					{% for jobtype in jobTypes %}
+						<option value='{{ jobtype.title }}'></option>
+					{% endfor %}
+				</datalist>
+
+				<input type='text' name='sector' list='sector' placeholder='Select a sector' class='rounded px-2 outline-0 border border-gray-600 w-64 h-10'>
+
+				<datalist id='sector'>
+					{% for sector in sectors %}
+						<option value='{{ sector.name }}'></option>
+					{% endfor %}
+				</datalist>
+
+				<button id='searchButton' class='ml-auto bg-violet-600 h-10 rounded text-white font-semibold w-32 transition hover:bg-white border-2 hover:text-violet-600 hover:border-violet-600'>Search</button>
+			</div>
+
 			{% for job in jobsPage %}
-				<div onclick="setSideJob(`{{job.title}}`, `{{job.salary}}`, `{{job.sector}}`, `{{job.description}}`, `{{job.user.company}}`, `{{job.id}}`)" class="hover:cursor-pointer	w-full rounded border border-gray-400 p-10">
-					<div class="flex flex-col gap-3 justify-start">
-						<div class="flex items-center">
-							<div class="text-lg font-semibold text-bookmark-blue flex space-x-4 items-center mb-2">
-								<i class="fa-solid fa-computer"></i>
+				<div onclick='setSideJob(`{{job.title}}`, `{{job.salary}}`, `{{job.sector}}`, `{{job.description}}`, `{{job.user.company}}`, `{{job.id}}`)' class='hover:cursor-pointer	w-full rounded border border-gray-400 p-10'>
+					<div class='flex flex-col gap-3 justify-start'>
+						<div class='flex items-center'>
+							<div class='text-lg font-semibold text-bookmark-blue flex space-x-4 items-center mb-2'>
+								<i class='fa-solid fa-computer'></i>
 								<span class=''>{{job.title}}</span>
 							</div>
-							<span class="ml-auto text-gray-600">{{job.createdAt | 	 date('d/m/Y')}}</span>
+							<span class='ml-auto text-gray-600'>{{job.createdAt | 	 date('d/m/Y')}}</span>
 						</div>
-						<span class="text-sm text-gray-500 flex gap-1 items-center">
-							<i class="fa-solid fa-dollar"></i>
+						<span class='text-sm text-gray-500 flex gap-1 items-center'>
+							<i class='fa-solid fa-dollar'></i>
 							{{job.salary | number_format(0, ',', ' ')}}
 							€
 						</span>
-						<div class="text-sm text-gray-500 flex gap-1 items-center">
-							<i class="fa-solid fa-location-dot"></i>
+						<div class='text-sm text-gray-500 flex gap-1 items-center'>
+							<i class='fa-solid fa-location-dot'></i>
 							<span>{{job.sector}}</span>
 						</div>
-						<div class="text-sm text-gray-500 flex">
+						<div class='text-sm text-gray-500 flex'>
 							<span class='flex gap-1 items-center'>
-								<i class="fa-solid fa-building"></i>
+								<i class='fa-solid fa-building'></i>
 								<p>{{job.user.company}}</p>
 							</span>
 						</div>
-						<div class="text-sm text-gray-500 flex items-center">
+						<div class='text-sm text-gray-500 flex items-center'>
 							<p>{{job.description | length > 400 ? job.description|slice(0, 400) ~ '...' : job.description}}</p>
 						</div>
 					</div>
@@ -52,17 +65,17 @@
 
 				<div class='flex flex-col gap-6 text-gray-500'>
 					<span class='flex gap-2 items-center'>
-						<i class="fa-solid fa-dollar"></i>
+						<i class='fa-solid fa-dollar'></i>
 						<p id='sideJobSalary'></p>
 					</span>
 
 					<span class='flex gap-2 items-center'>
-						<i class="fa-solid fa-location-dot"></i>
+						<i class='fa-solid fa-location-dot'></i>
 						<p id='sideJobSector'></p>
 					</span>
 
 					<span class='flex gap-2 items-center'>
-						<i class="fa-solid fa-building"></i>
+						<i class='fa-solid fa-building'></i>
 						<p id='sideJobCompany'></p>
 					</span>
 
@@ -71,8 +84,8 @@
 					</span>
 
 					<div>
-						<div class="mt-5">
-							<a id='applyButton' class="mr-2 my-1 uppercase tracking-wider px-2 text-violet-600 border-violet-600 hover:bg-violet-600 hover:text-white border text-sm font-semibold rounded py-1 transition transform duration-500 cursor-pointer">Continuer pour postuler</a>
+						<div class='mt-5'>
+							<a id='applyButton' class='mr-2 my-1 uppercase tracking-wider px-2 text-violet-600 border-violet-600 hover:bg-violet-600 hover:text-white border text-sm font-semibold rounded py-1 transition transform duration-500 cursor-pointer'>Continuer pour postuler</a>
 						</div>
 					</div>
 				</div>

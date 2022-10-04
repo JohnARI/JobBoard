@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Job;
 use App\Entity\JobTypes;
+use App\Entity\Sector;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -26,6 +27,8 @@ class UserHomeController extends AbstractController
     {
         $jobs = new Job(); // Création d'un objet Job
         $jobTypes = new JobTypes(); // Création d'un objet JobTypes
+        $sectors = new Sector();
+        $sectors = $this->entityManager->getRepository(Sector::class)->findAll();
         $jobs = $this->entityManager->getRepository(Job::class)->findAll(); //Récupération de tous les jobs
         $jobTypes = $this->entityManager->getRepository(JobTypes::class)->findAll(); //Récupération de tous les types de jobs
         $jobsPage = $paginator->paginate(
@@ -36,7 +39,8 @@ class UserHomeController extends AbstractController
         return $this->render('home/user_home.html.twig', [
             'controller_name' => 'UserHomeController',
             'jobsPage' => $jobsPage, // On passe les jobs à la vue
-            'jobTypes' => $jobTypes // On passe les types de jobs à la vue
+            'jobTypes' => $jobTypes, // On passe les types de jobs à la vue
+            'sectors' => $sectors // On passe les types de jobs à la vue
         ]);
     }
 }
