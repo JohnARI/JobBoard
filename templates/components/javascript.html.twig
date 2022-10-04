@@ -6,51 +6,61 @@
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
 <script>
 	$(document).ready(function () {
-		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector').DataTable();
+$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector, #data-table-recruiter').DataTable();
 
-    $('#profilemenuBtn').on('mouseenter', function() {
-				if ($('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-    })
-		
-    $('#menudesktop').on('mouseleave', function() {
-			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-    })
+$('#profilemenuBtn').on('mouseenter', function () {
+if ($('#profilemenu').hasClass('hidden')) 
+$('#profilemenu').toggleClass('hidden')
 
-		$('#user_resume').on('change', function(e) {
-			var file = e.target.files[0]
-			var fileReader = new FileReader() 	
-			fileReader.onload = function() {
-				var typedarray = new Uint8Array(this.result)
-				const loadingTask = pdfjsLib.getDocument(typedarray)
-				loadingTask.promise.then(async function(pdf) {
-					var page = await pdf.getPage(1)
-					var canvas = document.getElementById('pdf_preview')
-					var ctx = canvas.getContext('2d')
-					var viewport = page.getViewport({scale: 1})
-					
-					canvas.width = viewport.viewBox[2]
-					canvas.height = viewport.viewBox[3]
-					page.render({canvasContext: ctx, viewport: viewport, scale: 1})
-					if($(canvas).hasClass('hidden')) $(canvas).toggleClass('hidden')
-					$("label[for='user_resume']")[0].innerHTML = file.name
-				})
-    	}
-    	fileReader.readAsArrayBuffer(file);
- 		})
-	})
-	let error = document.querySelector('#errorMessage');
-	setTimeout(function () {
-		$(error).fadeOut("slow");
-	}, 5000)
+})
 
-	function setSideJob(title, salary, sector, desc, company, id) {
-		if ($('#sideJob').hasClass('hidden')) $('#sideJob').toggleClass('hidden')
-		if (!$('#jobList').hasClass('w-1/2')) $('#jobList').toggleClass('w-1/2 px-80')
-		$('#applyButton').attr('href', `/job/apply/${id}`)
-		$('#sideJobTitle').html(title)
-		$('#sideJobSalary').html(salary)
-		$('#sideJobSector').html(sector)
-		$('#sideJobDescription').html(desc)
-		$('#sideJobCompany').html(company)
-	}
+$('#menudesktop').on('mouseleave', function () {
+if (!$('#profilemenu').hasClass('hidden')) 
+$('#profilemenu').toggleClass('hidden')
+
+})
+
+$('#user_resume').on('change', function (e) {
+var file = e.target.files[0]
+var fileReader = new FileReader()
+fileReader.onload = function () {
+var typedarray = new Uint8Array(this.result)
+const loadingTask = pdfjsLib.getDocument(typedarray)
+loadingTask.promise.then(async function (pdf) {
+var page = await pdf.getPage(1)
+var canvas = document.getElementById('pdf_preview')
+var ctx = canvas.getContext('2d')
+var viewport = page.getViewport({scale: 1})
+
+canvas.width = viewport.viewBox[2]
+canvas.height = viewport.viewBox[3]
+page.render({canvasContext: ctx, viewport: viewport, scale: 1})
+if ($(canvas).hasClass('hidden')) 
+$(canvas).toggleClass('hidden')
+
+$("label[for='user_resume']")[0].innerHTML = file.name
+})
+}
+fileReader.readAsArrayBuffer(file);
+})
+})
+let error = document.querySelector('#errorMessage');
+setTimeout(function () {
+$(error).fadeOut("slow");
+}, 5000)
+
+function setSideJob(title, salary, sector, desc, company, id) {
+if ($('#sideJob').hasClass('hidden')) 
+$('#sideJob').toggleClass('hidden')
+
+if (!$('#jobList').hasClass('w-1/2')) 
+$('#jobList').toggleClass('w-1/2 px-80')
+
+$('#applyButton').attr('href', `/job/apply/${id}`)
+$('#sideJobTitle').html(title)
+$('#sideJobSalary').html(salary)
+$('#sideJobSector').html(sector)
+$('#sideJobDescription').html(desc)
+$('#sideJobCompany').html(company)
+}
 </script>

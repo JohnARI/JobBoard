@@ -33,13 +33,13 @@ security:
   # Note: Only the *first* access control that matches will be used
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
-    - { path: ^/user, roles: ROLE_USER }
     - { path: ^/recruiter, roles: ROLE_RECRUITER }
+    - { path: ^/user, roles: ROLE_USER }
 
   role_hierarchy:
-    ROLE_USER : ['ROLE_USER']
-    ROLE_RECRUITER: ['ROLE_RECRUITER']
-    ROLE_ADMIN : ['ROLE_ADMIN']
+    ROLE_USER : 'ROLE_USER'
+    ROLE_RECRUITER: ['ROLE_RECRUITER', 'ROLE_USER']
+    ROLE_ADMIN : ['ROLE_ADMIN', 'ROLE_RECRUITER', 'ROLE_USER']
 
 when@test:
   security:

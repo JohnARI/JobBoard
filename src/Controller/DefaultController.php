@@ -22,9 +22,9 @@ class DefaultController extends AbstractController
                 case 'Utilisateur': // Si l'utilisateur est un utilisateur
                     return $this->redirectToRoute('app_user_home');
                 case 'Recruteur': // Si l'utilisateur est un recruteur
-                    return $this->redirectToRoute('recruiter_home');
+                    return $this->redirectToRoute('app_recruiter_home');
                 case 'Administrateur': // Si l'utilisateur est un administrateur
-                    return $this->redirectToRoute('app_user_home'); //TODO: changer la route quand la page admin sera créée
+                    return $this->redirectToRoute('admin_home');
             }
         }
     }
