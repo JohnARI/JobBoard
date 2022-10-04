@@ -1,11 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre profil{% endblock %}
+{% block title %}
+	{% if app.user.id == user.id %}
+		Votre profil
+	{% elseif app.user.role == 'Recruteur' or app.user.role == 'Administrateur'%}
+		Profil de
+		{{user.firstname}}
+		{{user.lastname}}
+	{% endif %}
+{% endblock %}
 
 {% block body %}
-{{myProfil.id}}
-{{myProfil.email}}
-{{myProfil.role}}
-{{myProfil.firstname}}
-{{myProfil.lastname}}
+	{% if app.user.id == user.id %}
+		{{myProfil.id}}
+		{{myProfil.email}}
+		{{myProfil.role}}
+		{{myProfil.firstname}}
+		{{myProfil.lastname}}
+	{% elseif app.user.role == 'Recruteur' or app.user.role == 'Administrateur'%}
+  {{myProfil.id}}
+		{{myProfil.email}}
+		{{myProfil.role}}
+		{{myProfil.firstname}}
+		{{myProfil.lastname}}
+    <h2>test</h2>
+    {% else %}
+    <h2>test2</h2>
+		<h1>This is not your profile</h1>
+	{% endif %}
 {% endblock %}

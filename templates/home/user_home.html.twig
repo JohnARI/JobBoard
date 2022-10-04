@@ -7,7 +7,6 @@
 		<div id='jobList' class='flex flex-col p-20 px-80 gap-6 overflow-y-scroll'>
 			<div class='flex gap-6'>
 				<input type='text' name='jobtype' list='jobtype' placeholder='Select a job' class='rounded px-2 outline-0 border border-gray-600 w-64 h-10'>
-
 				<datalist id='jobtype'>
 					{% for jobtype in jobTypes %}
 						<option value='{{ jobtype.title }}'></option>

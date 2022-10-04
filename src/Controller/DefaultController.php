@@ -14,7 +14,7 @@ class DefaultController extends AbstractController
     public function index(): Response
     {
         if (!$this->isGranted('ROLE_USER')) { // Si l'utilisateur n'est pas connecté
-            return $this->redirectToRoute('app_login'); 
+            return $this->redirectToRoute('app_user_home'); 
         }
         if ($user = $this->getUser()) { // Si l'utilisateur est connecté
             $role = $user->getRole();
