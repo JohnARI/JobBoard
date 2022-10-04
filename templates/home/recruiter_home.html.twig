@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Home Recruiter
+{% endblock %}
+
+{% block body %}
+	{% embed "components/table.html.twig" %}
+{% set title = 'Home Recruiter' %}
+		{% set id = 'data-table-recruiter' %}
+		{% block th %}
+			<th class="px-6 py-3">Firstname</th>
+			<th class="px-6 py-3">Lastname</th>
+			<th class="px-6 py-3">Email</th>
+      <th class="px-6 py-3">Role</th>
+		{% endblock %}
+		{% block tbody %}
+			{% for user in users %}
+				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
+					<td class="px-6 py-4">{{ user.firstname }}</td>
+					<td class="px-6 py-4">{{ user.lastname }}</td>
+          <td class="px-6 py-4">{{ user.email }}</td>
+          <td class="px-6 py-4">{{ user.role }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">Aucune donnée</td>
+				</tr>
+			{% endfor %}
+		{% endblock %}
+	{% endembed %}
+{% endblock %}
