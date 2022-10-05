@@ -39,27 +39,26 @@ class JobRepository extends ServiceEntityRepository
         }
     }
 
-   /**
-    * @return Job[] Returns an array of Job objects
-    */
-   public function findBySearch($value): array
-   {
-       return $this->createQueryBuilder('j')
-           ->andWhere('j.title LIKE :val')
-           ->OrWhere('j.description LIKE :val')
-           ->setParameter('val', $value)
-           ->getQuery()
-           ->getResult()
-       ;
-   }
+    /**
+     * @return Job[] Returns an array of Job objects
+     */
+    public function findBySearch($value): array
+    {
+        return $this->createQueryBuilder('j')
+            ->innerJoin('j.jobType', 'jt')
+            ->andWhere('jt.title = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Job
-//    {
-//        return $this->createQueryBuilder('j')
-//            ->andWhere('j.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Job
+    //    {
+    //        return $this->createQueryBuilder('j')
+    //            ->andWhere('j.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
