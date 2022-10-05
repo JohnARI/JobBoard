@@ -28,7 +28,7 @@ class UserHomeController extends AbstractController
         $jobs = new Job(); // Création d'un objet Job
         $jobTypes = new JobTypes(); // Création d'un objet JobTypes
         $sectors = new Sector();
-        $sectors = $this->entityManager->getRepository(Sector::class)->findAll();
+        $sectors = $this->entityManager->getRepository(Sector::class)->findAll(); // Récupération de tous les secteurs
         $jobs = $this->entityManager->getRepository(Job::class)->findAll(); //Récupération de tous les jobs
         $jobTypes = $this->entityManager->getRepository(JobTypes::class)->findAll(); //Récupération de tous les types de jobs
         $jobsPage = $paginator->paginate(
@@ -37,25 +37,25 @@ class UserHomeController extends AbstractController
             10 // Nombre de résultats par page
         );
 
-        $formSearch = $this->createForm(SearchType::class);
-        $formSearch->handleRequest($request);
+        $formSearch = $this->createForm(SearchType::class); // Creation du formulaire de recherche
+        $formSearch->handleRequest($request); // Envoie de la data
 
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $value = $formSearch['jobType']->getData();
-            if($value != 'All' && $value != '') {
-            $jobs = $this->entityManager->getRepository(Job::class)->findBySearch($value);
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) { // Si le formulaire est valide
+            $value = $formSearch['jobType']->getData(); // Recupération de l'entrée utilisateur
+            if($value != 'All' && $value != '') { // Si l'entrée n'est pas null
+            $jobs = $this->entityManager->getRepository(Job::class)->findBySearch($value); // Recherche des jobs en lien avec l'entrée de l'utilisateur
             $jobsPage = $paginator->paginate(
-                $jobs, // Requête contenant les données à paginer (ici nos jobs)
-                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-                10 // Nombre de résultats par page
+                $jobs,
+                $request->query->getInt('page', 1),
+                10
             );
         } 
-            if ($value == 'All' || $value == '') {
+            if ($value == 'All' || $value == '') { // Si l'utilisateur ne fais pas de recherche spécifique
                 $jobs = $this->entityManager->getRepository(Job::class)->findAll();
                 $jobsPage = $paginator->paginate(
-                $jobs, // Requête contenant les données à paginer (ici nos jobs)
-                $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-                10 // Nombre de résultats par page
+                $jobs,
+                $request->query->getInt('page', 1),
+                10
             );
         }
         }
