@@ -1,11 +1,22 @@
 <script src='https://cdn.tailwindcss.com'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{asset('assets/main.js')}}"></script>
 <script src="https://kit.fontawesome.com/5860ccadae.js" crossorigin="anonymous"></script>
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
 <script>
 	$(document).ready(function () {
+    $('#burger').on('click', function() {
+        $(this).children().first().toggleClass('rotate-45 absolute left-1/4')
+        $(this).children().eq(2).toggleClass('rotate-[-45deg] absolute left-1/4')
+        $(this).children().eq(1).toggleClass('opacity-0')
+        $('#menumobile').toggleClass('bg-white')
+        $('#menumobile').children().eq(1).toggleClass('hidden')
+        $('#menumobile').children().eq(2).toggleClass('hidden')
+        $('#menumobile').children().eq(3).toggleClass('hidden')
+        $('#menumobile').children().eq(4).toggleClass('hidden')
+        $('#menumobile').toggleClass('h-screen')
+    })
+
 		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector, #data-table-recruiter').DataTable();
 
 		$('#profilemenuBtn').on('mouseenter', function () {
@@ -13,7 +24,7 @@
 		})
 
 		$('#menudesktop').on('mouseleave', function () {
-			if (!$('#profilemenu').hasClass('hidden'))  $('#profilemenu').toggleClass('hidden')
+			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
 		})
 
 		$('#user_resume').on('change', function (e) {
@@ -22,6 +33,7 @@
 
 			fileReader.onload = function () {
 				var typedarray = new Uint8Array(this.result)
+
 				const loadingTask = pdfjsLib.getDocument(typedarray)
 
 				loadingTask.promise.then(async function (pdf) {
@@ -43,26 +55,26 @@
 
 			fileReader.readAsArrayBuffer(file);
 		})
-
-		let error = document.querySelector('#errorMessage');
+	
+		let error = document.querySelector('#errorMessage')
 
 		setTimeout(function () {
 			$(error).fadeOut("slow");
 		}, 5000)
-
-		function setSideJob(title, salary, sector, desc, company, id) {
-			if ($('#sideJob').hasClass('hidden'))  $('#sideJob').toggleClass('hidden')
-
-			if (!$('#jobList').hasClass('w-1/2'))  {
-				$('#jobList').toggleClass('w-1/2 px-80')
-
-				$('#applyButton').attr('href', `/job/apply/${id}`)
-				$('#sideJobTitle').html(title)
-				$('#sideJobSalary').html(salary)
-				$('#sideJobSector').html(sector)
-				$('#sideJobDescription').html(desc)
-				$('#sideJobCompany').html(company)
-			}
-		}
 	})
+
+	function setSideJob(title, salary, sector, desc, company, id) {
+		if ($('#sideJob').hasClass('hidden')) $('#sideJob').toggleClass('hidden')
+
+		if (!$('#jobList').hasClass('w-1/2')) {
+			$('#jobList').toggleClass('w-1/2 px-80')
+
+			$('#applyButton').attr('href', `/job/apply/${id}`)
+			$('#sideJobTitle').html(title)
+			$('#sideJobSalary').html(salary)
+			$('#sideJobSector').html(sector)
+			$('#sideJobDescription').html(desc)
+			$('#sideJobCompany').html(company)
+		}
+	}
 </script>

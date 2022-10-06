@@ -36,6 +36,7 @@
 							<a href='{{ path('app_register') }}'>Register</a>
 						</li>
 					{% endif %}
+					
 					{% if app.user and app.user.role == 'Administrateur' %}
 						<li>
 							<a href="{{path('admin_home')}}">Dashboard</a>
