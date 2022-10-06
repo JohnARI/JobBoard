@@ -68,13 +68,13 @@
 
 		if (!$('#jobList').hasClass('w-1/2')) {
 			$('#jobList').toggleClass('w-1/2 px-80')
-
-			$('#applyButton').attr('href', `/job/apply/${id}`)
-			$('#sideJobTitle').html(title)
-			$('#sideJobSalary').html(salary)
-			$('#sideJobSector').html(sector)
-			$('#sideJobDescription').html(desc)
-			$('#sideJobCompany').html(company)
 		}
+
+		$('#applyButton').attr('href', `/job/apply/${id}`)
+		$('#sideJobTitle').html(title)
+		$('#sideJobSalary').html(salary)
+		$('#sideJobSector').html(sector)
+		$('#sideJobDescription').html(desc)
+		$('#sideJobCompany').html(company)
 	}
 </script>
