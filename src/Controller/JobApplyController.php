@@ -19,7 +19,7 @@ class JobApplyController extends AbstractController
      */
     public function index(Job $job, Request $request, JobApplicationRepository $jobApplicationRepository): Response
     {
-        $jobApplication = new JobApplication();
+        $jobApplication = new JobApplication(); // Instanciation de l'entité JobApplication
         $form = $this->createForm(JobApplyType::class, $jobApplication); // Création du formulaire
         $form->handleRequest($request); // Traitement du formulaire
         $user = $this->getUser(); // Récupération de l'utilisateur connecté

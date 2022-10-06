@@ -21,7 +21,7 @@ class JobTypesController extends AbstractController
     public function index(JobTypesRepository $jobTypesRepository): Response
     {
         return $this->render('dashboard/crud/job_types/index.html.twig', [
-            'job_types' => $jobTypesRepository->findAll(),
+            'job_types' => $jobTypesRepository->findAll(), // On récupère tous les types de jobs
         ]);
     }
 
@@ -30,18 +30,18 @@ class JobTypesController extends AbstractController
      */
     public function new(Request $request, JobTypesRepository $jobTypesRepository): Response
     {
-        $jobType = new JobTypes();
-        $form = $this->createForm(JobTypesType::class, $jobType);
-        $form->handleRequest($request);
+        $jobType = new JobTypes(); // Instanciation de l'entité JobTypes
+        $form = $this->createForm(JobTypesType::class, $jobType); // Création du formulaire
+        $form->handleRequest($request); // Traitement du formulaire
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $jobTypesRepository->add($jobType, true);
+        if ($form->isSubmitted() && $form->isValid()) { // Si le formulaire est soumis et valide
+            $jobTypesRepository->add($jobType, true); // On enregistre le type de job en base de données
 
-            return $this->redirectToRoute('app_job_types_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_job_types_index', [], Response::HTTP_SEE_OTHER); // Redirection vers la liste des types de jobs
         }
 
         return $this->renderForm('dashboard/crud/job_types/new.html.twig', [
-            'job_type' => $jobType,
+            'job_type' => $jobType, // On passe le type de job à la vue
             'form' => $form,
         ]);
     }
@@ -61,7 +61,7 @@ class JobTypesController extends AbstractController
      */
     public function edit(Request $request, JobTypes $jobType, JobTypesRepository $jobTypesRepository): Response
     {
-        $form = $this->createForm(JobTypesType::class, $jobType);
+        $form = $this->createForm(JobTypesType::class, $jobType); // Création du formulaire avec les données du type de job
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,8 +81,8 @@ class JobTypesController extends AbstractController
      */
     public function delete(Request $request, JobTypes $jobType, JobTypesRepository $jobTypesRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$jobType->getId(), $request->request->get('_token'))) {
-            $jobTypesRepository->remove($jobType, true);
+        if ($this->isCsrfTokenValid('delete'.$jobType->getId(), $request->request->get('_token'))) { // Vérification du token CSRF
+            $jobTypesRepository->remove($jobType, true); // Suppression du type de job en base de données
         }
 
         return $this->redirectToRoute('app_job_types_index', [], Response::HTTP_SEE_OTHER);

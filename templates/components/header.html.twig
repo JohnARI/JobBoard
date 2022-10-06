@@ -11,15 +11,15 @@
 				<a class='flex gap-2' href='/'>
 					<h1>BallTeaser</h1>
 
-					<img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}'>
+					<img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}' alt="Logo">
 				</a>
 			</li>
 
 			<li class='ml-auto my-auto'>
-				<a href=''><img class='h-6 invert-[50%]' src='{{asset('assets/images/notif.png')}}'></a>
+				<a href=''><img class='h-6 invert-[50%]' src='{{asset('assets/images/notif.png')}}' alt="Notifications"></a>
 			</li>
 			<li id='profilemenuBtn' class='my-auto hover:cursor-pointer'>
-				<a class='h-full w-full bg-red-500'><img class='h-6 invert-[50%]' src='{{asset('assets/images/profile.png')}}'></a>
+				<a class='h-full w-full bg-red-500'><img class='h-6 invert-[50%]' src='{{asset('assets/images/profile.png')}}' alt="Profile menu"></a>
 			</li>
 
 			<li id='profilemenu' class='hidden absolute top-16 text-[1rem] text-stone-800 right-4 bg-white shadow w-64'>
@@ -27,6 +27,13 @@
 					{% if app.user %}
 						<li>
 							<a href='{{ path('app_my_profile', {'id': app.user.id}) }}'>Profile</a>
+						</li>
+						{% else %}
+						<li>
+							<a href='{{ path('app_login') }}'>Login</a>
+						</li>
+						<li>
+							<a href='{{ path('app_register') }}'>Register</a>
 						</li>
 					{% endif %}
 					{% if app.user and app.user.role == 'Administrateur' %}
@@ -50,23 +57,23 @@
 				<a class='flex gap-2 m-auto' href='/'>
 					<h1>BallTeaser</h1>
 
-					<img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}'>
+					<img class='h-8 mt-[-6px]' src='{{asset("assets/images/logo.png")}}' alt="Logo">
 				</a>
 			</li>
 			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/notif.png')}}'>Notifications</a>
+				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/notif.png')}}' alt="Notifications">Notifications</a>
 			</li>
 			{% if app.user %}
 
 				<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-					<a class='flex gap-6' href='{{ path('app_my_profile', {'id': app.user.id}) }}'><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}'>Profile</a>
+					<a class='flex gap-6' href='{{ path('app_my_profile', {'id': app.user.id}) }}'><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}' alt="Profile menu">Profile</a>
 				</li>
 			{% endif %}
 			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}'>Job applications</a>
+				<a class='flex gap-6' href=''><img class='h-7 invert-[50%]' src='{{asset('assets/images/profile.png')}}' alt="Job applied">Job applications</a>
 			</li>
 			<li class='text-stone-800 text-lg uppercase hidden mx-10'>
-				<a class='flex gap-6' href='{{path("app_logout")}}'><img class='h-7 invert-[50%]' src='{{asset('assets/images/logout.png')}}'>Logout</a>
+				<a class='flex gap-6' href='{{path("app_logout")}}'><img class='h-7 invert-[50%]' src='{{asset('assets/images/logout.png')}}' alt="Logout">Logout</a>
 			</li>
 		</ul>
 	</div>

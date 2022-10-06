@@ -31,15 +31,15 @@ class JobController extends AbstractController
      */
     public function new(Request $request, JobRepository $jobRepository): Response
     {
-        $job = new Job();
-        $form = $this->createForm(JobType::class, $job);
-        $form->handleRequest($request);
+        $job = new Job(); // Instanciation de l'entité Job
+        $form = $this->createForm(JobType::class, $job); // Création du formulaire
+        $form->handleRequest($request); // Récupération des données du formulaire
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $job->setUser($this->getUser());
-            $job->setCreatedAt(new DateTimeImmutable());
-            $jobRepository->add($job, true);
-            return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER);
+        if ($form->isSubmitted() && $form->isValid()) { // Si le formulaire est soumis et valide
+            $job->setUser($this->getUser()); // On définit l'utilisateur qui a créé l'annonce
+            $job->setCreatedAt(new DateTimeImmutable()); // On définit la date de création de l'annonce
+            $jobRepository->add($job, true); // On enregistre l'annonce en base de données
+            return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER); // Redirection vers la liste des annonces
         }
 
         return $this->renderForm('dashboard/crud/job/new.html.twig', [
@@ -83,8 +83,8 @@ class JobController extends AbstractController
      */
     public function delete(Request $request, Job $job, JobRepository $jobRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $job->getId(), $request->request->get('_token'))) {
-            $jobRepository->remove($job, true);
+        if ($this->isCsrfTokenValid('delete' . $job->getId(), $request->request->get('_token'))) { // Vérification du token CSRF
+            $jobRepository->remove($job, true); // Suppression de l'annonce
         }
 
         return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER);
