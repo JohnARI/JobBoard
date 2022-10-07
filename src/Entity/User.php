@@ -5,15 +5,25 @@ namespace App\Entity;
 use App\Entity\JobApplication;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ApiResource(
+ * collectionOperations={"get"},
+ *      normalizationContext={"groups"={"user:read"}},
+ * )
+ * @ApiFilter(SearchFilter::class,
+ * properties={"email":"partial", "firstname":"partial", "lastname":"partial", "role":"partial"})
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -22,16 +32,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"job:read", "user:read", "jobApplication:read", "company:read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user:read"})
      */
     private $roles = [];
 
@@ -48,16 +61,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"job:read", "user:read", "jobApplication:read", "company:read"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"job:read", "user:read", "jobApplication:read", "company:read"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"user:read", "jobApplication:read", "company:read"})
      */
     private $phone;
 
@@ -69,6 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"user:read"})
      */
     private $isVerified = false;
 
@@ -79,11 +96,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="users")
+     * @Groups({"user:read", "job:read"})
      */
     private $company;
 
     /**
      * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="users")
+     * @Groups({"user:read"})
      */
     private $sector;
 

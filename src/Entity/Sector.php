@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\SectorRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SectorRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=SectorRepository::class)
+ * @ApiResource(
+ * collectionOperations={"get"},
+ *      normalizationContext={"groups"={"sector:read"}},
+ * )
+ * @ApiFilter(SearchFilter::class,
+ * properties={"name":"partial", "companies":"partial"})
  */
 class Sector
 {
@@ -21,11 +31,14 @@ class Sector
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"job:read"})
+     * @Groups({"user:read", "sector:read", "jobType:read", "company:read"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Company::class, mappedBy="sector")
+     * @Groups({"sector:read"})
      */
     private $companies;
 

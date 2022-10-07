@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\CompanyRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CompanyRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
+ * @ApiResource(
+ * collectionOperations={"get"},
+ * normalizationContext={"groups"={"company:read"}},
+ * )
+ * @ApiFilter(SearchFilter::class,
+ * properties={"name":"partial", "sector":"partial", "users":"exact", "jobTypes":"partial"})
  */
 class Company
 {
@@ -16,26 +26,31 @@ class Company
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"jobType:read", "company:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"job:read", "user:read", "company:read", "sector:read", "jobType:read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read", "sector:read", "jobType:read"})
      */
     private $website;
 
     /**
      * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="companies")
+     * @Groups({"user:read", "company:read", "jobType:read"})
      */
     private $sector;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="company")
+     * @Groups({"company:read"})
      */
     private $users;
 

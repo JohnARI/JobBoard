@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\JobTypesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\JobTypesRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=JobTypesRepository::class)
+ * @ApiResource(
+ * collectionOperations={"get"},
+ *      normalizationContext={"groups"={"jobType:read"}},
+ * )
+ * @ApiFilter(SearchFilter::class,
+ * properties={"title":"partial", "jobs":"partial", "companies":"partial"})
  */
 class JobTypes
 {
@@ -21,16 +31,19 @@ class JobTypes
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"job:read", "jobType:read"})
      */
     private $title;
 
     /**
      * @ORM\OneToMany(targetEntity=Job::class, mappedBy="jobType")
+     * @Groups({"jobType:read"})
      */
     private $jobs;
 
     /**
      * @ORM\OneToMany(targetEntity=Company::class, mappedBy="jobTypes")
+     * @Groups({"jobType:read"})
      */
     private $companies;
 

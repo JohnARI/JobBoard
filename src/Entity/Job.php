@@ -2,13 +2,31 @@
 
 namespace App\Entity;
 
-use App\Repository\JobRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Sector;
+use App\Entity\JobTypes;
+use App\Entity\JobApplication;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\JobRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=JobRepository::class)
+ * @ApiResource(
+ * collectionOperations={"get"},
+ *      attributes={
+ *          "order"={"created_at":"DESC"},
+ *          "pagination_enabled"=true,
+ *          "pagination_items_per_page"=10,
+ * },
+ * normalizationContext={"groups"={"job:read"}},
+ * )
+ * @ApiFilter(SearchFilter::class,
+ * properties={"contract_type":"exact", "job_type":"exact", "sector":"exact", "company":"exact", "title":"partial", "description":"partial"})
  */
 class Job
 {
@@ -16,16 +34,19 @@ class Job
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"job:read", "jobType:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"job:read", "jobType:read", "user:read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"job:read", "user:read", "jobType:read"})
      */
     private $description;
 
@@ -36,41 +57,49 @@ class Job
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"job:read", "user:read"})
      */
     private $salary;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"job:read", "user:read"})
      */
     private $contract_type;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"user:read"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="date_immutable", nullable=true)
+     * @Groups({"user:read", "job:read"})
      */
     private $start;
 
     /**
      * @ORM\Column(type="date_immutable", nullable=true)
+     * @Groups({"user:read", "job:read"})
      */
     private $end;
 
     /**
      * @ORM\ManyToOne(targetEntity=JobTypes::class, inversedBy="jobs")
+     * @Groups({"user:read", "job:read"})
      */
     private $jobType;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobs")
+     * @Groups({"job:read"})
      */
     private $User;
 
     /**
      * @ORM\ManyToOne(targetEntity=Sector::class, inversedBy="jobs")
+     * @Groups({"job:read", "user:read"})
      */
     private $sector;
 

@@ -35,11 +35,13 @@ security:
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/recruiter, roles: ROLE_RECRUITER }
     - { path: ^/user, roles: ROLE_USER }
+    - { path: ^/api/(companies|jobs|sectors|job_applications|jobtypes), roles: PUBLIC_ACCESS, methods: [GET] }
+    - { path: ^/api/users, roles: PUBLIC_ACCESS, methods: [] }
 
   role_hierarchy:
-    ROLE_USER : 'ROLE_USER'
-    ROLE_RECRUITER: ['ROLE_RECRUITER', 'ROLE_USER']
-    ROLE_ADMIN : ['ROLE_ADMIN', 'ROLE_RECRUITER', 'ROLE_USER']
+    ROLE_USER: "ROLE_USER"
+    ROLE_RECRUITER: ["ROLE_RECRUITER", "ROLE_USER"]
+    ROLE_ADMIN: ["ROLE_ADMIN", "ROLE_RECRUITER", "ROLE_USER"]
 
 when@test:
   security:

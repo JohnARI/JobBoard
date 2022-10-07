@@ -24,7 +24,7 @@ class UserHomeController extends AbstractController
     }
 
     /**
-     * @Route("/home", name="app_user_home")
+     * @Route("user/home", name="app_user_home")
      */
     public function index(PaginatorInterface $paginator, Request $request, SectorRepository $sectorRepository, JobRepository $jobRepository, JobTypesRepository $jobTypesRepository): Response
     {

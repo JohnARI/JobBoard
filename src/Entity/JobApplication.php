@@ -2,11 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\JobApplicationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\JobApplicationRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=JobApplicationRepository::class)
+ * @ApiResource(
+ * collectionOperations={"get"},
+ *      normalizationContext={"groups"={"jobApplication:read"}},
+ * )
+ * @ApiFilter(SearchFilter::class,
+ * properties={"firstname":"partial", "lastname":"partial", "user":"partial", "phone":"partial"})
  */
 class JobApplication
 {
@@ -20,6 +30,7 @@ class JobApplication
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="jobApplications")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"jobApplication:read"})
      */
     private $user;
 
@@ -36,16 +47,19 @@ class JobApplication
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"jobApplication:read"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"jobApplication:read"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"jobApplication:read"})
      */
     private $phone;
 
@@ -61,6 +75,8 @@ class JobApplication
 
     /**
      * @ORM\ManyToOne(targetEntity=job::class, inversedBy="jobApplications")
+     * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $job;
 
