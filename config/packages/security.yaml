@@ -36,7 +36,7 @@ security:
     - { path: ^/recruiter, roles: ROLE_RECRUITER }
     - { path: ^/user, roles: ROLE_USER }
     - { path: ^/api/(companies|jobs|sectors|job_applications|jobtypes), roles: PUBLIC_ACCESS, methods: [GET] }
-    - { path: ^/api/users, roles: PUBLIC_ACCESS, methods: [] }
+    - { path: ^/api/users, roles: ROLE_USER, methods: [GET] }
 
   role_hierarchy:
     ROLE_USER: "ROLE_USER"

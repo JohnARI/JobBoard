@@ -24,9 +24,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *          "pagination_items_per_page"=10,
  * },
  * normalizationContext={"groups"={"job:read"}},
+ * 
  * )
  * @ApiFilter(SearchFilter::class,
- * properties={"contract_type":"exact", "job_type":"exact", "sector":"exact", "company":"exact", "title":"partial", "description":"partial"})
+ * properties={"contract_type":"partial", "jobType.title":"partial", "title":"partial", "description":"partial"})
  */
 class Job
 {
