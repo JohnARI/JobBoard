@@ -18,6 +18,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=JobRepository::class)
  * @ApiResource(
  * collectionOperations={"get"},
+ * itemOperations={"get"},
  *      attributes={
  *          "order"={"created_at":"DESC"},
  *          "pagination_enabled"=true,
@@ -50,6 +51,12 @@ class Job
      * @Groups({"job:read", "user:read", "jobType:read"})
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"job:read"})
+     */
+     private $shortDesc;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -139,6 +146,18 @@ class Job
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getShortDesc(): ?string
+    {
+        return $this->shortDesc;
+    }
+
+    public function setShortDesc(string $shortDesc): self
+    {
+        $this->shortDesc = $shortDesc;
 
         return $this;
     }

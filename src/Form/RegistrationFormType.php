@@ -20,6 +20,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'border-b-2 border-violet-600 outline-0 h-10',
                     'placeholder' => 'Email'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'please enter a Email',
+                    ])
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
@@ -35,7 +40,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 8,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,

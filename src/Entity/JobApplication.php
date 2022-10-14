@@ -13,6 +13,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=JobApplicationRepository::class)
  * @ApiResource(
  * collectionOperations={"get"},
+ * itemOperations={"get"},
  *      normalizationContext={"groups"={"jobApplication:read"}},
  * )
  * @ApiFilter(SearchFilter::class,

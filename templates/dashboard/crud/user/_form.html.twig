@@ -9,10 +9,7 @@
 		{{ form_widget(form.sector) }}
 		{{ form_widget(form.roles) }}
 		{{ form_widget(form.company) }}
+		{{ form_widget(form.submit) }}
 	{% endblock %}
-{% block canvas %}
-	<div class='relative ml-auto w-1/2 bg-gray-200 hidden xl:flex overflow-hidden'>
-		<canvas class='hidden h-full translate-x-[-50%] left-1/2 top-1/2 translate-y-[-50%] top-0 absolute' id='pdf_preview'></canvas>
-	</div>
-{% endblock %}
+{% block button %}{% endblock %}
 {% endembed %}

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Service;
+
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -18,13 +19,14 @@ class FileUploader
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
-        $fileName = $safeFilename.'-'.uniqid(). '.'. $file->guessExtension();
+        $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
         try {
             $file->move($this->getTargetDirectory() . $path, $fileName);
         } catch (FileException $e) {
-            return null; //TODO
+            // Un message d'erreur sera affiché si le fichier n'a pas pu être déplacé
+            return null; // Par exemple
         }
-        
+
         return $fileName;
     }
 

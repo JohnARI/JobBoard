@@ -3,13 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Job;
-use App\Entity\Sector;
 use App\Entity\JobTypes;
 use App\Form\SearchType;
 use App\Repository\JobRepository;
 use App\Repository\JobTypesRepository;
-use App\Repository\SectorRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,20 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserHomeController extends AbstractController
 {
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
 
     /**
-     * @Route("user/home", name="app_user_home")
+     * @Route("/home", name="app_user_home")
      */
-    public function index(PaginatorInterface $paginator, Request $request, SectorRepository $sectorRepository, JobRepository $jobRepository, JobTypesRepository $jobTypesRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, JobRepository $jobRepository, JobTypesRepository $jobTypesRepository): Response
     {
         $jobs = new Job(); // Création d'un objet Job
         $jobTypes = new JobTypes(); // Création d'un objet JobTypes
-        $sectors = new Sector();
-        $sectors = $sectorRepository->findAll(); // Récupération de tous les secteurs
         $jobs = $jobRepository->findAll(); //Récupération de tous les jobs
         $jobTypes = $jobTypesRepository->findAll(); //Récupération de tous les types de jobs
         $jobsPage = $paginator->paginate(
@@ -66,7 +57,6 @@ class UserHomeController extends AbstractController
         return $this->render('home/user_home.html.twig', [
             'jobsPage' => $jobsPage, // On passe les jobs à la vue
             'jobTypes' => $jobTypes, // On passe les types de jobs à la vue
-            'sectors' => $sectors, // On passe les types de jobs à la vue
             'formSearch' => $formSearch->createView(), // On passe le formulaire à la vue
         ]);
     }

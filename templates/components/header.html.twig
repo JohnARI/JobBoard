@@ -28,7 +28,19 @@
 						<li>
 							<a href='{{ path('app_my_profile', {'id': app.user.id}) }}'>Profile</a>
 						</li>
+						{% if app.user and app.user.roles[0] == 'ROLE_ADMIN' %}
+							<li>
+								<a href="{{path('admin_home')}}">Dashboard</a>
+							</li>
 						{% else %}
+							<li>
+								<a href=''>Job applications</a>
+							</li>
+						{% endif %}
+						<li class='text-red-400'>
+							<a href='{{path("app_logout")}}'>Log out</a>
+						</li>
+					{% else %}
 						<li>
 							<a href='{{ path('app_login') }}'>Login</a>
 						</li>
@@ -36,19 +48,6 @@
 							<a href='{{ path('app_register') }}'>Register</a>
 						</li>
 					{% endif %}
-					
-					{% if app.user and app.user.role == 'Administrateur' %}
-						<li>
-							<a href="{{path('admin_home')}}">Dashboard</a>
-						</li>
-					{% else %}
-						<li>
-							<a href=''>Job applications</a>
-						</li>
-					{% endif %}
-					<li class='text-red-400'>
-						<a href='{{path("app_logout")}}'>Log out</a>
-					</li>
 				</ul>
 			</li>
 		</ul>
@@ -79,3 +78,4 @@
 		</ul>
 	</div>
 {% endblock %}
+{% block error %}{% endblock %}

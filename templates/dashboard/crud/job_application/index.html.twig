@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% embed "components/table.html.twig" %}
+		{% set title = 'Job Dashboard' %}
+		{% set id = 'data-table-jobtypes' %}
+		{% block th %}
+			<th class="px-6 py-3">Id</th>
+			<th class="px-6 py-3">Resume</th>
+			<th class="px-6 py-3">Motivation</th>
+			<th class="px-6 py-3">Fullname</th>
+			<th class="px-6 py-3">Phone</th>
+			<th class="px-6 py-3">Experiences</th>
+			<th class="px-6 py-3">Job Applied</th>
+			<th class="px-6 py-3">Created at</th>
+			<th class="px-6 py-3">Actions</th>
+		{% endblock %}
+		{% block tbody %}
+			{% for jobApplication in jobApplications %}
+				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
+					<td class="px-6 py-4">{{ jobApplication.id }}</td>
+					<td class="px-6 py-4">{{ jobApplication.resume }}</td>
+					<td class="px-6 py-4">{{jobApplication.motivation}}</td>
+					<td class="px-6 py-4">{{ jobApplication.user.firstname ~ ' ' ~ jobApplication.user.lastname }}</td>
+					<td class="px-6 py-4">{{ jobApplication.phone }}</td>
+					<td class="px-6 py-4">{{ jobApplication.experiences }}</td>
+					<td class="px-6 py-4">{{ jobApplication.job.title }}</td>
+					<td class="px-6 py-4">{{ jobApplication.createdAt ? jobApplication.createdAt|date('d-m-Y') : '' }}</td>
+					<td class="px-6 py-4 flex gap-4">
+						<a href="{{ path('app_job_application_show', {'id': jobApplication.id}) }}">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+						<a href="{{ path('app_job_application_edit', {'id': jobApplication.id}) }}">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</a>
+						{{include('dashboard/crud/job_application/_delete_form.html.twig')}}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="11">No Data</td>
+				</tr>
+			{% endfor %}
+		{% endblock %}
+	{% endembed %}
+{% endblock %}

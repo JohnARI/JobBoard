@@ -5,76 +5,86 @@
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
 <script>
 	$(document).ready(function () {
-    $('#burger').on('click', function() {
-        $(this).children().first().toggleClass('rotate-45 absolute left-1/4')
-        $(this).children().eq(2).toggleClass('rotate-[-45deg] absolute left-1/4')
-        $(this).children().eq(1).toggleClass('opacity-0')
-        $('#menumobile').toggleClass('bg-white')
-        $('#menumobile').children().eq(1).toggleClass('hidden')
-        $('#menumobile').children().eq(2).toggleClass('hidden')
-        $('#menumobile').children().eq(3).toggleClass('hidden')
-        $('#menumobile').children().eq(4).toggleClass('hidden')
-        $('#menumobile').toggleClass('h-screen')
-    })
+$('#burger').on('click', function () {
+$(this).children().first().toggleClass('rotate-45 absolute left-1/4')
+$(this).children().eq(2).toggleClass('rotate-[-45deg] absolute left-1/4')
+$(this).children().eq(1).toggleClass('opacity-0')
+$('#menumobile').toggleClass('bg-white')
+$('#menumobile').children().eq(1).toggleClass('hidden')
+$('#menumobile').children().eq(2).toggleClass('hidden')
+$('#menumobile').children().eq(3).toggleClass('hidden')
+$('#menumobile').children().eq(4).toggleClass('hidden')
+$('#menumobile').toggleClass('h-screen')
+})
 
-		$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector, #data-table-recruiter').DataTable();
+$('#data-table-company, #data-table-user, #data-table-job, #data-table-jobtypes, #data-table-sector, #data-table-recruiter').DataTable();
 
-		$('#profilemenuBtn').on('mouseenter', function () {
-			if ($('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-		})
+$('#profilemenuBtn').on('mouseenter', function () {
+if ($('#profilemenu').hasClass('hidden')) 
+$('#profilemenu').toggleClass('hidden')
 
-		$('#menudesktop').on('mouseleave', function () {
-			if (!$('#profilemenu').hasClass('hidden')) $('#profilemenu').toggleClass('hidden')
-		})
+})
 
-		$('#user_resume').on('change', function (e) {
-			var file = e.target.files[0]
-			var fileReader = new FileReader()
+$('#menudesktop').on('mouseleave', function () {
+if (!$('#profilemenu').hasClass('hidden')) 
+$('#profilemenu').toggleClass('hidden')
 
-			fileReader.onload = function () {
-				var typedarray = new Uint8Array(this.result)
+})
 
-				const loadingTask = pdfjsLib.getDocument(typedarray)
+$('#user_resume').on('change', function (e) {
+var file = e.target.files[0]
+var fileReader = new FileReader()
 
-				loadingTask.promise.then(async function (pdf) {
-					var page = await pdf.getPage(1)
-					var canvas = document.getElementById('pdf_preview')
-					var ctx = canvas.getContext('2d')
-					var viewport = page.getViewport({scale: 1})
+fileReader.onload = function () {
+var typedarray = new Uint8Array(this.result)
 
-					canvas.width = viewport.viewBox[2]
-					canvas.height = viewport.viewBox[3]
+const loadingTask = pdfjsLib.getDocument(typedarray)
 
-					page.render({canvasContext: ctx, viewport: viewport, scale: 1})
+loadingTask.promise.then(async function (pdf) {
+var page = await pdf.getPage(1)
+var canvas = document.getElementById('pdf_preview')
+var ctx = canvas.getContext('2d')
+var viewport = page.getViewport({scale: 1})
 
-					if ($(canvas).hasClass('hidden')) $(canvas).toggleClass('hidden')
+canvas.width = viewport.viewBox[2]
+canvas.height = viewport.viewBox[3]
 
-					$("label[for='user_resume']")[0].innerHTML = file.name
-				})
-			}
+page.render({canvasContext: ctx, viewport: viewport, scale: 1})
 
-			fileReader.readAsArrayBuffer(file);
-		})
-	
-		let error = document.querySelector('#errorMessage')
+if ($(canvas).hasClass('hidden')) 
+$(canvas).toggleClass('hidden')
 
-		setTimeout(function () {
-			$(error).fadeOut("slow");
-		}, 5000)
-	})
 
-	function setSideJob(title, salary, sector, desc, company, id) {
-		if ($('#sideJob').hasClass('hidden')) $('#sideJob').toggleClass('hidden')
 
-		if (!$('#jobList').hasClass('w-1/2')) {
-			$('#jobList').toggleClass('w-1/2 px-80')
-		}
+$("label[for='user_resume']")[0].innerHTML = file.name
+})
+}
 
-		$('#applyButton').attr('href', `/job/apply/${id}`)
-		$('#sideJobTitle').html(title)
-		$('#sideJobSalary').html(salary)
-		$('#sideJobSector').html(sector)
-		$('#sideJobDescription').html(desc)
-		$('#sideJobCompany').html(company)
-	}
+fileReader.readAsArrayBuffer(file);
+})
+
+let error = document.querySelector('#errorMessage')
+
+setTimeout(function () {
+$(error).fadeOut("slow");
+}, 5000)
+})
+
+function setSideJob(title, salary, sector, desc, company, id, picture, jobType) {
+if ($('#sideJob').hasClass('hidden')) 
+$('#sideJob').toggleClass('hidden')
+
+if (!$('#jobList').hasClass('w-1/2')) {
+$('#jobList').toggleClass('w-1/2 px-80')
+}
+
+$('#applyButton').attr('href', `/job/apply/${id}`)
+$('#sideJobTitle').html(title)
+$('#sideJobSalary').html(salary)
+$('#sideJobSector').html(sector)
+$('#sideJobDescription').html(desc)
+$('#sideJobCompany').html(company)
+$('#sideJobTypePicture').attr('src', 'uploads/jobType/' + picture)
+$('#sideJobTypeTitle').html(jobType)
+}
 </script>

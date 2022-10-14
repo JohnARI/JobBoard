@@ -15,6 +15,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=SectorRepository::class)
  * @ApiResource(
  * collectionOperations={"get"},
+ * itemOperations={"get"},
  *      normalizationContext={"groups"={"sector:read"}},
  * )
  * @ApiFilter(SearchFilter::class,

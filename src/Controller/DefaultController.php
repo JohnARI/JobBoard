@@ -17,13 +17,13 @@ class DefaultController extends AbstractController
             return $this->redirectToRoute('app_user_home'); 
         }
         if ($user = $this->getUser()) { // Si l'utilisateur est connecté
-            $role = $user->getRole();
+            $role = $user->getRoles()[0];
             switch ($role) {
-                case 'Utilisateur': // Si l'utilisateur est un utilisateur
+                case 'ROLE_USER': // Si l'utilisateur est un utilisateur
                     return $this->redirectToRoute('app_user_home');
-                case 'Recruteur': // Si l'utilisateur est un recruteur
+                case 'ROLE_RECRUITER': // Si l'utilisateur est un recruteur
                     return $this->redirectToRoute('app_recruiter_home');
-                case 'Administrateur': // Si l'utilisateur est un administrateur
+                case 'ROLE_ADMIN': // Si l'utilisateur est un administrateur
                     return $this->redirectToRoute('admin_home');
             }
         }

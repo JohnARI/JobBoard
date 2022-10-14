@@ -15,6 +15,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass=JobTypesRepository::class)
  * @ApiResource(
  * collectionOperations={"get"},
+ * itemOperations={"get"},
  *      normalizationContext={"groups"={"jobType:read"}},
  * )
  * @ApiFilter(SearchFilter::class,
@@ -28,6 +29,11 @@ class JobTypes
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -56,6 +62,18 @@ class JobTypes
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 
     public function getTitle(): ?string

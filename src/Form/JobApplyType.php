@@ -25,14 +25,14 @@ class JobApplyType extends AbstractType
             ])
             ->add('motivation', FileType::class, [
                 'mapped' => false,
-                'required'  => false,
+                'required'  => true,
                 'attr' => [
                     'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
                     'placeholder' => 'Motivation'
                 ]
             ])
             ->add('firstname', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
                     'placeholder' => 'Firstname'
@@ -40,15 +40,18 @@ class JobApplyType extends AbstractType
 
             ])
             ->add('lastname', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
                     'placeholder' => 'Lastname'
                 ]
             ])
             ->add('phone', TelType::class, [
-                'required' => false,
+                'required' => true,
                 'attr' => [
+                    'minlength' => 10,
+                    'maxlength' => 10,
+                    'minlengthMessage' => 'Le numéro de téléphone doit contenir 10 chiffres',
                     'class' => 'mt-6 w-full border-b-2 border-violet-600 outline-0 h-10',
                     'placeholder' => 'Phone'
                 ]

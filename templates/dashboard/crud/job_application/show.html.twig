@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>jobApplication</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ jobApplications.id }}</td>
+			</tr>
+			<tr>
+				<th>Title</th>
+				<td>{{ jobApplications.user.firstname ~ ' ' ~ jobApplications.user.lastname }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ jobApplications.resume }}</td>
+			</tr>
+			<tr>
+				<th>Link</th>
+				<td>{{ jobApplications.motivation }}</td>
+			</tr>
+			<tr>
+				<th>Sector</th>
+				<td>{{ jobApplications.phone }}</td>
+			</tr>
+			<tr>
+				<th>Salary</th>
+				<td>{{ jobApplications.experiences }}</td>
+			</tr>
+			<tr>
+				<th>Created_at</th>
+				<td>{{ jobApplications.createdAt ? jobApplications.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Salary</th>
+				<td>{{ jobApplications.job.title }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_job_application_index') }}">back to list</a>
+
+	<a href="{{ path('app_job_application_edit', {'id': jobApplications.id}) }}">edit</a>
+
+	{{ include('dashboard/crud/job_application/_delete_form.html.twig') }}
+{% endblock %}

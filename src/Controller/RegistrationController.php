@@ -41,6 +41,10 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 $request
             );
+        } else if ($form->isSubmitted() && !$form->isValid()) {
+            if($form->getErrors(true)->count() > 0) {
+                $this->addFlash('red', $form->getErrors(true)->current()->getMessage());
+            }
         }
 
         return $this->render('registration/register.html.twig', [

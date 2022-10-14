@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ApiResource(
  * collectionOperations={"get"},
+ * itemOperations={"get"},
  *      normalizationContext={"groups"={"user:read"}},
  * )
  * @ApiFilter(SearchFilter::class,
@@ -146,28 +147,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername(): string
     {
         return (string) $this->email;
-    }
-
-    public function getRole(): ?string
-    {
-        $role = $this->getRoles();
-        $implode =  implode(",", $role);
-        $admin = "Administrateur";
-        $recruiter = "Recruteur";
-        $user = "Utilisateur";
-
-        switch ($implode) {
-            case 'ROLE_ADMIN,ROLE_USER':
-                return $admin;
-                break;
-            case 'ROLE_RECRUITER,ROLE_USER':
-                return $recruiter;
-                break;
-            case 'ROLE_USER':
-                return $user;
-                break;
-                return  "";
-        }
     }
 
     /**

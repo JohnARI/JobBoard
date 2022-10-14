@@ -3,7 +3,7 @@
 {% block title %}
 	{% if app.user.id == user.id %}
 		Votre profil
-	{% elseif app.user.role == 'Recruteur' or app.user.role == 'Administrateur'%}
+	{% elseif app.user.roles[0] == 'ROLE_RECUITER' or app.user.roles[0] == 'ROLE_ADMIN'%}
 		Profil de
 		{{user.firstname}}
 		{{user.lastname}}
@@ -14,18 +14,18 @@
 	{% if app.user.id == user.id %}
 		{{myProfil.id}}
 		{{myProfil.email}}
-		{{myProfil.role}}
+		{{myProfil.roles[0]}}
 		{{myProfil.firstname}}
 		{{myProfil.lastname}}
-	{% elseif app.user.role == 'Recruteur' or app.user.role == 'Administrateur'%}
-  {{myProfil.id}}
+	{% elseif app.user.roles[0] == 'ROLE_RECUITER' or app.user.roles[0] == 'ROLE_ADMIN'%}
+		{{myProfil.id}}
 		{{myProfil.email}}
-		{{myProfil.role}}
+		{{myProfil.roles[0]}}
 		{{myProfil.firstname}}
 		{{myProfil.lastname}}
-    <h2>test</h2>
-    {% else %}
-    <h2>test2</h2>
+		<h2>test</h2>
+	{% else %}
+		<h2>test2</h2>
 		<h1>This is not your profile</h1>
 	{% endif %}
 {% endblock %}

@@ -2,10 +2,11 @@
 
 {% block body %}
 	{% embed "components/table.html.twig" %}
-{% set title = 'Job Types Dashboard' %}
+		{% set title = 'Job Types Dashboard' %}
 		{% set id = 'data-table-jobtypes' %}
 		{% block th %}
 			<th class="px-6 py-3">Id</th>
+			<th class="px-6 py-3">Picture</th>
 			<th class="px-6 py-3">Title</th>
 			<th class="px-6 py-3">Actions</th>
 		{% endblock %}
@@ -13,10 +14,15 @@
 			{% for job_type in job_types %}
 				<tr class="bg-white dark:bg-gray-800 dark: hover:bg-gray-50 dark:hover:bg-gray-200">
 					<td class="px-6 py-4">{{ job_type.id }}</td>
+					<td class="px-6 py-4"><img class="w-12 h-12" src="{{ asset('uploads/jobType/' ~ job_type.picture)}}" alt="Work Domain picture"></td>
 					<td class="px-6 py-4">{{ job_type.title }}</td>
 					<td class="px-6 py-4 flex gap-4">
-						<a href="{{ path('app_job_show', {'id': job_type.id}) }}"><i class="fa-solid fa-eye"></i></a>
-						<a href="{{ path('app_job_edit', {'id': job_type.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+						<a href="{{ path('app_job_types_show', {'id': job_type.id}) }}">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+						<a href="{{ path('app_job_types_edit', {'id': job_type.id}) }}">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</a>
 						{{include('dashboard/crud/job_types/_delete_form.html.twig')}}
 					</td>
 				</tr>
@@ -26,6 +32,8 @@
 				</tr>
 			{% endfor %}
 		{% endblock %}
-		{% block button %}<a class='mx-10 bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_job_types_new') }}">Add</a>{% endblock %}
+		{% block button %}
+			<a class='mx-10 bg-violet-600 h-10 rounded text-white font-semibold hover:bg-white border-2 px-2 py-1 w-32 hover:text-violet-600 hover:border-violet-600 transition text-center' href="{{ path('app_job_types_new') }}">Add</a>
+		{% endblock %}
 	{% endembed %}
 {% endblock %}
